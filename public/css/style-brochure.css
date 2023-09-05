@@ -1,0 +1,15 @@
+td {
+    padding-right: 12px;
+    vertical-align: middle;
+}
+
+.button
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button form {
+    margin: 0;
+}

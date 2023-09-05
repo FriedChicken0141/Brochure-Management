@@ -20,27 +20,32 @@
             @endif
 
             <div class="card card-primary">
-                <form method="POST">
+                <form method="POST" action="/brochures/add">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">名前</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="名前">
+                            <input type="text" class="form-control" id="name" name="name" >
                         </div>
 
                         <div class="form-group">
-                            <label for="type">種別</label>
-                            <input type="text" class="form-control" id="type" name="type" placeholder="種別">
+                            <label for="area">該当市町（県）</label>
+                            <select type="area" class="form-control" id="area" name="area" >
+                                <option value="disabled selected"></option>
+                                @foreach($areas as $area)
+                                    <option value="{{ $area->id }}">{{ $area->area_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="detail">残数</label>
-                            <input type="number" class="form-control" id="quantity" name="quantity" placeholder="残数">
+                            <input type="text" class="form-control" id="quantity" name="quantity" >
                         </div>
 
                         <div class="form-group">
                             <label for="detail">詳細</label>
-                            <input type="text" class="form-control" id="detail" name="detail" placeholder="詳細説明">
+                            <input type="text" class="form-control" id="detail" name="detail" >
                         </div>
                     </div>
 

@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('items', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('user_id')->unsigned();
+        Schema::create('brochures', function (Blueprint $table) {
+            $table->bigIncrements('id')->nullable(false);
+            $table->unsignedBigInteger('user_id')->unsigned()->nullable(false);
             $table->string('name', 100)->nullable(false);
-            $table->string('type', 100)->nullable(false);
+            $table->unsignedBigInteger('area')->nullable(false);
             $table->integer('quantity')->unsigned()->nullable(); // 整数のみ許容
             $table->string('detail', 100)->nullable();
             $table->timestamps();
 
-            // id,user_id,name,typeカラムにインデックスを設定
-            $table->index(['id','user_id','name','type']);
+            // id,user_id,name,areaカラムにインデックスを設定
+            $table->index(['id','user_id','name','area']);
+            // areaカラムの外部キー制約追加
+            $table->foreign('area')->references('id')->on('areas');
             // 'user_id'は'users'テーブルの'id'カラムを参照する
             $table->foreign('user_id')->references('id')->on('users');
         });
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('brochures');
     }
 };
