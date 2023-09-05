@@ -69,7 +69,7 @@
                                                 @csrf
                                                 <button type="submit" class="btn btn-secondary btn-sm">編集</button>
                                             </form>
-                                            <form action="/brochureDelete/{{$brochure->id}}" method="post">
+                                            <form action="brochures/delete/{{$brochure->id}}" method="post">
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
                                             </form>

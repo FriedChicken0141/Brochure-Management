@@ -30,6 +30,8 @@ Route::prefix('brochures')->group(function () {
     // 編集画面
     Route::post('/edit/{id}', [App\Http\Controllers\brochureController::class, 'edit']);
     Route::post('/update', [App\Http\Controllers\brochureController::class, 'update']);
+    // 削除画面
+    Route::post('/delete/{id}', [App\Http\Controllers\brochureController::class, 'destroy']);
 });
 
 Auth::routes();

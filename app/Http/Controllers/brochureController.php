@@ -69,7 +69,6 @@ class brochureController extends Controller
         return view('edit',['brochures' => $brochures,'areas' => $areas]);
     }
 
-
     // 編集した情報を渡す
     public function update(Request $request)
     {
@@ -83,4 +82,14 @@ class brochureController extends Controller
 
         return redirect('/brochures');
     }
+
+    // パンフレット情報削除
+    public function destroy(Request $request)
+    {
+        $brochures = Brochure::findOrFail($request -> id);
+        $brochures -> delete();
+
+        return redirect('/brochures');
+    }
+
 }
