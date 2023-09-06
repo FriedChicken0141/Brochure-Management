@@ -74,7 +74,7 @@ class brochureController extends Controller
     {
         $brochures = Brochure::findOrFail($request -> id);
         $brochures -> name = $request -> name;
-        $brochures -> area = $request -> area;
+        $brochures -> area_id = $request -> area_id;
         $brochures -> quantity = $request -> quantity;
         $brochures -> detail = $request -> detail;
 
