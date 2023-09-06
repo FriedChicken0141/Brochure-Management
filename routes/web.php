@@ -32,6 +32,8 @@ Route::prefix('brochures')->group(function () {
     Route::post('/update', [App\Http\Controllers\brochureController::class, 'update']);
     // 削除画面
     Route::post('/delete/{id}', [App\Http\Controllers\brochureController::class, 'destroy']);
+    // 検索機能
+    Route::get('/search', [App\Http\Controllers\brochureController::class, 'search']);
 });
 
 Auth::routes();

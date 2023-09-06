@@ -25,7 +25,7 @@ class brochureController extends Controller
      */
     public function index(Request $request)
     {
-        $brochures = brochure::with('area') -> get();
+        $brochures = brochure::all();
         $areas = area::all();
 
         return view('index',[
@@ -52,7 +52,7 @@ class brochureController extends Controller
         brochure::create([
             'user_id' => $user_id,
             'name' => $request->name,
-            'area' => $request -> area,
+            'area_id' => $request->area_id,
             'quantity' => $request->quantity,
             'detail' => $request->detail,
         ]);
@@ -90,6 +90,12 @@ class brochureController extends Controller
         $brochures -> delete();
 
         return redirect('/brochures');
+    }
+
+    // 検索機能
+    public function search(Request $request)
+    {
+
     }
 
 }

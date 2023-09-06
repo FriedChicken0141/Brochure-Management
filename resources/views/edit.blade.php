@@ -19,6 +19,7 @@
                 </div>
             @endif
 
+            {{-- idは不要。 nameは重要 --}}
             <div class="card card-primary">
                 {{-- 入力内容をPOSTで/brochures/updateへ渡す --}}
                 <form method="POST" action="/brochures/update">
@@ -29,19 +30,19 @@
 
                         {{-- id --}}
                         <div class="form-group">
-                            <input type="hidden" id="id" name="id" value="{{$brochures->id}}" class="form-control"  >
+                            <input type="hidden" name="id" value="{{$brochures->id}}" class="form-control"  >
                         </div>
 
                         {{-- 名前 --}}
                         <div class="form-group">
                             <label for="name">名前</label>
-                            <input type="text" id="name" name="name" value="{{$brochures->name}}" class="form-control" required>
+                            <input type="text" name="name" value="{{$brochures->name}}" class="form-control" required>
                         </div>
 
                         {{-- 該当市町（県） --}}
                         <div class="form-group">
                             <label for="area">該当市町（県）</label>
-                            <select type="area" id="area" name="area"  class="form-control" required >
+                            <select type="area" name="area_id"  class="form-control" required >
                                 @foreach($areas as $area)
                                     <option value="{{ $area->id }}" @if ($brochures->area == $area->id) @endif>{{ $area->area_name}}</option>
                                 @endforeach
@@ -51,13 +52,13 @@
                         {{-- 残数 --}}
                         <div class="form-group">
                             <label for="quantity">残数</label>
-                            <input type="text" id="quantity" name="quantity" value="{{$brochures->quantity}}" class="form-control"  required>
+                            <input type="text" name="quantity" value="{{$brochures->quantity}}" class="form-control"  required>
                         </div>
 
                         {{-- 詳細 --}}
                         <div class="form-group">
                             <label for="detail">詳細</label>
-                            <input type="text" id="detail" name="detail" value="{{$brochures->detail}}" class="form-control" >
+                            <input type="text" name="detail" value="{{$brochures->detail}}" class="form-control" >
                         </div>
                     </div>
 

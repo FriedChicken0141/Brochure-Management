@@ -16,7 +16,7 @@
                         <div class="input-group input-group-sm">
                             {{-- 検索機能 --}}
                             <div class="input-group-append">
-                                <form action="hoge" method="get";>
+                                <form action="/brochures/search" method="get";>
                                     @csrf
                                         <input type="text" name="keyword">
                                         <input type="submit" value="検索">
@@ -33,13 +33,14 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th style="width: 10%">ID</th>
+                                <th style="width: 5%">ID</th>
                                 <th style="width: 20%">名前</th>
                                 <th style="width: 15%">該当市町（県）</th>
                                 <th style="width: 10%">残数</th>
-                                <th style="width: 25%">詳細</th>
+                                <th style="width: 15%">詳細</th>
+                                <th style="width: 10%">プレビュー</th>
                                 <th style="width: 20%">更新日</th>
-                                <th style="width: 10%"></th>
+                                <th style="width: 15%"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,13 +53,16 @@
                                         <div>{{ $brochure->name }}</div>
                                     </td>
                                     <td>
-                                        <div>{{ $brochure->area }}</div>
+                                        <div>{{ $brochure->area->area_name }}</div>
                                     </td>
                                     <td>
                                         <div>{{ $brochure->quantity }}</div>
                                     </td>
                                     <td>
                                         <div>{{ $brochure->detail }}</div>
+                                    </td>
+                                    <td>
+                                        {{-- <div>{{ hoge -> hoge}}<</div> --}}
                                     </td>
                                     <td>
                                         <div>{{ $brochure->updated_at }}</div>

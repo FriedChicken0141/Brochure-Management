@@ -11,7 +11,7 @@ class brochure extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'area',
+        'area_id',
         'quantity',
         'detail',
         'updated_at',
@@ -19,7 +19,8 @@ class brochure extends Model
 
     public function area()
     {
-        return $this->belongsTo(Area::class,'area','id');
+        // return $this->hasOne(Area::class,);
+        return $this->belongsTo(Area::class);
     }
 }
 

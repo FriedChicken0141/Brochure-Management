@@ -25,12 +25,12 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">名前</label>
-                            <input type="text" class="form-control" id="name" name="name" >
+                            <input type="text" class="form-control" name="name" >
                         </div>
 
                         <div class="form-group">
                             <label for="area">該当市町（県）</label>
-                            <select type="area" class="form-control" id="area" name="area" >
+                            <select type="area" class="form-control" name="area_id" >
                                 <option value="disabled selected"></option>
                                 @foreach($areas as $area)
                                     <option value="{{ $area->id }}">{{ $area->area_name }}</option>
@@ -40,12 +40,12 @@
 
                         <div class="form-group">
                             <label for="detail">残数</label>
-                            <input type="text" class="form-control" id="quantity" name="quantity" >
+                            <input type="text" class="form-control" name="quantity" >
                         </div>
 
                         <div class="form-group">
                             <label for="detail">詳細</label>
-                            <input type="text" class="form-control" id="detail" name="detail" >
+                            <input type="text" class="form-control" name="detail" >
                         </div>
                     </div>
 

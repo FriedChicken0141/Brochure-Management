@@ -9,12 +9,11 @@ class Area extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id',
         'area_name',
     ];
 
     public function brochures()
     {
-        return $this -> hasMany(Brochure::class,'area','id');
+        return $this -> belongsTo(Brochure::class);
     }
 }
