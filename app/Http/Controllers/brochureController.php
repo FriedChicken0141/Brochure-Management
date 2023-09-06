@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Brochure;
 use App\Models\Area;
-
+use App\Models\brochure as ModelsBrochure;
 
 class brochureController extends Controller
 {
@@ -95,6 +95,25 @@ class brochureController extends Controller
     // 検索機能
     public function search(Request $request)
     {
+        // リクエストからキーワードを取得
+        $keyword = $request->input('keyword');
+        // クエリを作成
+        $query = Brochure::with('area');
+
+        // キーワード（入力部分）が空でない場合、検索処理を実行
+        if (!empty($keyword)) {
+            $query->where('id','like','%'.$keyword.'%')
+                ->orWhere('name','like','%'.$keyword.'%')
+                ->orWhereHas('area', function ($query) use ($keyword) {
+                    $query->where('area_name','like','%'.$keyword.'%')
+                ->orWhere('detail','like','%'.$keyword.'%');
+                });
+            }
+
+            // 検索検索を◯件表示
+            $brochures = $query -> orderBy('id','asc') -> paginate(10);
+
+            return view('index',['brochures' => $brochures,'keyword' => $keyword]);
 
     }
 

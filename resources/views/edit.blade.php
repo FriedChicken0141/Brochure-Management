@@ -44,7 +44,7 @@
                             <label for="area">該当市町（県）</label>
                             <select type="area" name="area_id"  class="form-control" required >
                                 @foreach($areas as $area)
-                                    <option value="{{ $area->id }}" @if ($brochures->area == $area->id) @endif>{{ $area->area_name}}</option>
+                                    <option value="{{ $area->id }}" @if ($brochures->area->id == $area->id) @endif>{{ $area->area_name}}</option>
                                 @endforeach
                             </select>
                         </div>
