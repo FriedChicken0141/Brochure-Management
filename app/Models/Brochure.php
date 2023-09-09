@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class brochure extends Model
 {
@@ -16,6 +17,11 @@ class brochure extends Model
         'detail',
         'img_path',
         'updated_at',
+    ];
+
+    use Sortable;
+    public $sortable = [
+        'id','area_id','quantity','updated_at',
     ];
 
     public function area()
