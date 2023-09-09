@@ -293,12 +293,12 @@ return [
         [
             'text' => 'パンフレット一覧',
             'url'  => 'brochures',
-            'icon' => 'fa-list',
+            'icon' => 'far fa-fw fa-file',
         ],
         [
             'text' => 'パンフレット登録',
             'url'  => 'brochures/register',
-            'icon' => 'fa-map',
+            'icon' => 'fas fa-fw fa-pen',
         ],
 
         // AdminLTEデフォルト
