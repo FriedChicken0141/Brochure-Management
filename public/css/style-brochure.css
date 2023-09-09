@@ -1,0 +1,9 @@
+.table td {
+    vertical-align: middle;
+}
+
+.button{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
