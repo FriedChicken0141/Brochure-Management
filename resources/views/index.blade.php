@@ -62,7 +62,12 @@
                                         <div>{{ $brochure->detail }}</div>
                                     </td>
                                     <td>
-                                        {{-- <div>{{ hoge -> hoge}}<</div> --}}
+                                        <div class="button">
+                                            <form action="brochures/cover/{{$brochure->id}}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-secondary btn-sm">表紙</button>
+                                            </form>
+                                        </div>
                                     </td>
                                     <td>
                                         <div>{{ $brochure->updated_at }}</div>

@@ -20,7 +20,7 @@
             @endif
 
             <div class="card card-primary">
-                <form method="POST" action="/brochures/add">
+                <form method="POST" action="/brochures/add" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -47,8 +47,12 @@
                             <label for="detail">詳細</label>
                             <input type="text" class="form-control" name="detail" >
                         </div>
-                    </div>
 
+                        <div class="form-group">
+                            <div><label for="cover">表紙画像</label></div>
+                            <input type="file" class="form-image" name="image" >
+                        </div>
+                    </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">登録</button>
                     </div>

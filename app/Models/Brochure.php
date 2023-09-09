@@ -14,6 +14,7 @@ class brochure extends Model
         'area_id',
         'quantity',
         'detail',
+        'img_path',
         'updated_at',
     ];
 

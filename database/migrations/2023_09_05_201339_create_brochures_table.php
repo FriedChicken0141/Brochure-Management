@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('area_id')->nullable(false);
             $table->integer('quantity')->unsigned()->nullable(); // 整数のみ許容
             $table->string('detail', 100)->nullable();
+            $table->string('img_path')->nullable();
             $table->timestamps();
 
             // id,user_id,name,areaカラムにインデックスを設定

@@ -24,6 +24,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::prefix('brochures')->group(function () {
     // 一覧画面
     Route::get('', [App\Http\Controllers\brochureController::class, 'index']);
+    // プレビュー画面
+    Route::post('/cover/{id}', [App\Http\Controllers\brochureController::class, 'cover']);
     // 登録画面
     Route::get('/register', [App\Http\Controllers\brochureController::class, 'register']);
     Route::post('/add', [App\Http\Controllers\brochureController::class, 'add']);
@@ -34,6 +36,7 @@ Route::prefix('brochures')->group(function () {
     Route::post('/delete/{id}', [App\Http\Controllers\brochureController::class, 'destroy']);
     // 検索機能
     Route::get('/search', [App\Http\Controllers\brochureController::class, 'search']);
+
 });
 
 Auth::routes();

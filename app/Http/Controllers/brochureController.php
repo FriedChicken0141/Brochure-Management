@@ -34,6 +34,16 @@ class brochureController extends Controller
         ]);
     }
 
+    // brochuresテーブルから情報を取得後、プレビュー画面を表示
+    public function cover(Request $request)
+    {
+        $brochures = brochure::all();
+
+        return view('cover',[
+            'brochures' => $brochures,
+        ]);
+    }
+
     // areasテーブルから情報を取得後、新規登録画面を表示
     public function register(Request $request)
     {
@@ -42,11 +52,18 @@ class brochureController extends Controller
         return view('register',['areas' => $areas]);
     }
 
-    // パンフレット登録【修正済み】
+    // パンフレット登録
     public function add(Request $request)
     {
         // userテーブルからidを取得
         $user_id = auth() -> user() -> id;
+
+        // ディレクトリ名
+        $dir = 'cover';
+        // アップロードされたファイル名を取得
+        $request -> file('image')->getClientOriginalName();
+        // coverディレクトリに画像を保存
+        $img_path = $request -> file('image') -> store('public/' . $dir);
 
         // DBへ登録
         brochure::create([
@@ -55,7 +72,9 @@ class brochureController extends Controller
             'area_id' => $request->area_id,
             'quantity' => $request->quantity,
             'detail' => $request->detail,
+            'img_path' => $img_path,
         ]);
+
 
             return redirect('/brochures');
     }
@@ -73,10 +92,19 @@ class brochureController extends Controller
     public function update(Request $request)
     {
         $brochures = Brochure::findOrFail($request -> id);
+
+        // ディレクトリ名
+        $dir = 'cover';
+        // アップロードされたファイル名を取得
+        $request -> file('image')->getClientOriginalName();
+        // coverディレクトリに画像を保存
+        $img_path = $request -> file('image') -> store('public/' . $dir);
+
         $brochures -> name = $request -> name;
         $brochures -> area_id = $request -> area_id;
         $brochures -> quantity = $request -> quantity;
         $brochures -> detail = $request -> detail;
+        $brochures -> img_path = $img_path;
 
         $brochures -> save();
 

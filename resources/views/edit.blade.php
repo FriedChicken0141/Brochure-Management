@@ -22,7 +22,7 @@
             {{-- idは不要。 nameは重要 --}}
             <div class="card card-primary">
                 {{-- 入力内容をPOSTで/brochures/updateへ渡す --}}
-                <form method="POST" action="/brochures/update">
+                <form method="POST" action="/brochures/update" enctype="multipart/form-data">
                     @csrf
 
                     {{-- 編集部分 --}}
@@ -59,6 +59,11 @@
                         <div class="form-group">
                             <label for="detail">詳細</label>
                             <input type="text" name="detail" value="{{$brochures->detail}}" class="form-control" >
+                        </div>
+
+                        <div class="form-group">
+                            <div><label for="cover">表紙画像</label></div>
+                            <input type="file" name="image" value="{{$brochures->img_path}}" class="form-image" >
                         </div>
                     </div>
 
