@@ -46,43 +46,27 @@
                         <tbody>
                             @foreach ($brochures as $brochure)
                                 <tr>
-                                    <td>
-                                        <div>{{ $brochure->id }}</div>
+                                    <td>{{ $brochure->id }}</td>
+                                    <td>{{ $brochure->name }}</td>
+                                    <td>{{ $brochure->area->area_name }}</td>
+                                    <td>{{ $brochure->quantity }}</td>
+                                    <td>{{ $brochure->detail }}</td>
+                                    <td class="button">
+                                        <form action="brochures/cover/{{$brochure->id}}" method="get">
+                                            @csrf
+                                            <button type="submit" class="btn btn-info btn-sm">表紙</button>
+                                        </form>
                                     </td>
-                                    <td>
-                                        <div>{{ $brochure->name }}</div>
-                                    </td>
-                                    <td>
-                                        <div>{{ $brochure->area->area_name }}</div>
-                                    </td>
-                                    <td>
-                                        <div>{{ $brochure->quantity }}</div>
-                                    </td>
-                                    <td>
-                                        <div>{{ $brochure->detail }}</div>
-                                    </td>
-                                    <td>
-                                        <div class="button">
-                                            <form action="brochures/cover/{{$brochure->id}}" method="get">
-                                                @csrf
-                                                <button type="submit" class="btn btn-secondary btn-sm">表紙</button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>{{ $brochure->updated_at }}</div>
-                                    </td>
-                                    <td>
-                                        <div class="button">
-                                            <form action="brochures/edit/{{$brochure->id}}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-secondary btn-sm">編集</button>
-                                            </form>
-                                            <form action="brochures/delete/{{$brochure->id}}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
-                                            </form>
-                                        </div>
+                                    <td>{{ $brochure->updated_at }}</td>
+                                    <td class="button">
+                                        <form action="brochures/edit/{{$brochure->id}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-secondary btn-sm">編集</button>
+                                        </form>
+                                        <form action="brochures/delete/{{$brochure->id}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

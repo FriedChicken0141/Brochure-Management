@@ -1,15 +1,9 @@
-td {
-    padding-right: 12px;
+.table td {
     vertical-align: middle;
 }
 
-.button
-{
+.button{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-}
-
-.button form {
-    margin: 0;
 }
