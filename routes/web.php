@@ -25,7 +25,7 @@ Route::prefix('brochures')->group(function () {
     // 一覧画面
     Route::get('', [App\Http\Controllers\brochureController::class, 'index']);
     // プレビュー画面
-    Route::post('/cover/{id}', [App\Http\Controllers\brochureController::class, 'cover']);
+    Route::get('/cover/{id}', [App\Http\Controllers\brochureController::class, 'cover']);
     // 登録画面
     Route::get('/register', [App\Http\Controllers\brochureController::class, 'register']);
     Route::post('/add', [App\Http\Controllers\brochureController::class, 'add']);

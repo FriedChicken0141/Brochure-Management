@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Brochure;
 use App\Models\Area;
-use App\Models\brochure as ModelsBrochure;
+use Illuminate\Support\Facades\Storage;
 
 class brochureController extends Controller
 {
@@ -34,13 +34,13 @@ class brochureController extends Controller
         ]);
     }
 
-    // brochuresテーブルから情報を取得後、プレビュー画面を表示
-    public function cover(Request $request)
+    // brochuresテーブルからidを取得後、プレビュー画面を表示
+    public function cover($id)
     {
-        $brochures = brochure::all();
+        $brochure = brochure::findOrFail($id);
 
         return view('cover',[
-            'brochures' => $brochures,
+            'brochure' => $brochure,
         ]);
     }
 
@@ -91,22 +91,28 @@ class brochureController extends Controller
     // 編集した情報を渡す
     public function update(Request $request)
     {
-        $brochures = Brochure::findOrFail($request -> id);
+        $brochure = Brochure::findOrFail($request -> id);
 
         // ディレクトリ名
         $dir = 'cover';
         // アップロードされたファイル名を取得
-        $request -> file('image')->getClientOriginalName();
+        $newImageName = $request -> file('image')->getClientOriginalName();
         // coverディレクトリに画像を保存
         $img_path = $request -> file('image') -> store('public/' . $dir);
+        // 以前の画像ファイル名を取得
+        $oldImageName = basename($brochure -> img_path);
+        // 古い画像の名前と新しい画像の名前が一致しなければ、古い画像を削除
+        if($oldImageName !== $newImageName){
+            storage::delete('public/' . $dir . '/' . $oldImageName);
+        }
 
-        $brochures -> name = $request -> name;
-        $brochures -> area_id = $request -> area_id;
-        $brochures -> quantity = $request -> quantity;
-        $brochures -> detail = $request -> detail;
-        $brochures -> img_path = $img_path;
+        $brochure -> name = $request -> name;
+        $brochure -> area_id = $request -> area_id;
+        $brochure -> quantity = $request -> quantity;
+        $brochure -> detail = $request -> detail;
+        $brochure -> img_path = $img_path;
 
-        $brochures -> save();
+        $brochure -> save();
 
         return redirect('/brochures');
     }
@@ -114,8 +120,19 @@ class brochureController extends Controller
     // パンフレット情報削除
     public function destroy(Request $request)
     {
-        $brochures = Brochure::findOrFail($request -> id);
-        $brochures -> delete();
+        // ディレクトリ名
+        $dir = 'cover';
+
+        $brochure = Brochure::findOrFail($request -> id);
+
+        // 画像名を取得
+        $ImageName = basename($brochure -> img_path);
+
+        $brochure -> delete();
+
+        if (!empty($ImageName)){
+            storage::delete('public/' . $dir . '/' . $ImageName);
+        }
 
         return redirect('/brochures');
     }

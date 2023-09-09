@@ -63,7 +63,7 @@
                                     </td>
                                     <td>
                                         <div class="button">
-                                            <form action="brochures/cover/{{$brochure->id}}" method="post">
+                                            <form action="brochures/cover/{{$brochure->id}}" method="get">
                                                 @csrf
                                                 <button type="submit" class="btn btn-secondary btn-sm">表紙</button>
                                             </form>
