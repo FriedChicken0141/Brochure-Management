@@ -15,11 +15,11 @@ return new class extends Migration
         Schema::create('brochures', function (Blueprint $table) {
             $table->bigIncrements('id')->nullable(false);
             $table->unsignedBigInteger('user_id')->unsigned()->nullable(false);
-            $table->string('name', 100)->nullable(false);
+            $table->varchar('name', 100)->nullable(false);
             $table->unsignedBigInteger('area_id')->nullable(false);
-            $table->integer('quantity')->unsigned()->nullable(); // 整数のみ許容
-            $table->string('detail', 100)->nullable();
-            $table->string('img_path')->nullable();
+            $table->integer('quantity')->unsigned()->nullable(false); // 整数のみ許容
+            $table->varchar('detail', 100)->nullable();
+            $table->varchar('img_path')->nullable();
             $table->timestamps();
 
             // id,user_id,name,areaカラムにインデックスを設定
