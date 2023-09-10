@@ -16,11 +16,13 @@
                         <div class="input-group input-group-sm">
                             {{-- 検索機能 --}}
                             <div class="input-group-append">
-                                <form action="/brochures/search" method="get";>
+                                <form action="/brochures/search" method="get" class="search">
                                     @csrf
                                         <input type="text" name="keyword">
                                         <input type="submit" value="検索">
-                                    <a href="{{ url('brochures/register') }}" class="btn btn-default">新規登録</a>
+                                </form>
+                                <form action="/brochures/register" method="get" class="register">
+                                    <button type="submit" class="btn btn-default">新規登録</button>
                                 </form>
                             </div>
                         </div>
@@ -58,7 +60,7 @@
                                         </form>
                                     </td>
                                     <td>{{ $brochure->updated_at }}</td>
-                                    <td class="button">
+                                    <td class="button-second">
                                         <form action="brochures/edit/{{$brochure->id}}" method="post">
                                             @csrf
                                             <button type="submit" class="btn btn-secondary btn-sm">編集</button>

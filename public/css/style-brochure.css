@@ -1,9 +1,44 @@
 .table td {
     vertical-align: middle;
+    padding-left: 12px!important;
 }
 
-.button{
+.table th {
+    padding-left: 12px!important;
+}
+
+.search {
+    padding-top: 6.5px!important;
+    padding-right: 30px!important;
+}
+
+.card-title {
+    padding-top: 7px!important;
+    font-size: 17px
+}
+
+.register {
+    padding-right: 12px!important;
+}
+
+.card-header {
+    padding: 12px!important;
+}
+
+.button {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
+
+.button-second {
+    display: flex!important;
+    justify-content: space-between!important;
+    align-items: center;
+    padding-right: 12px!important;
+}
+
+form {
+    padding: 3px!important;
+}
+
