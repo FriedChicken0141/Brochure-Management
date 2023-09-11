@@ -96,15 +96,20 @@ class brochureController extends Controller
 
         // ディレクトリ名
         $dir = 'cover';
-        // アップロードされたファイル名を取得
-        $newImageName = $request -> file('image')->getClientOriginalName();
+        // デフォルトの値を設定
+        $img_path = $brochure->img_path;
+
+        // 画像の添付があれば、アップロードされたファイル名を取得
+        if (!empty($request -> file('image'))){
+            $newImageName = $request -> file('image')->getClientOriginalName();
         // coverディレクトリに画像を保存
-        $img_path = $request -> file('image') -> store('public/' . $dir);
+            $img_path = $request -> file('image') -> store('public/' . $dir);
         // 以前の画像ファイル名を取得
-        $oldImageName = basename($brochure -> img_path);
+            $oldImageName = basename($brochure -> img_path);
         // 古い画像の名前と新しい画像の名前が一致しなければ、古い画像を削除
-        if($oldImageName !== $newImageName){
-            storage::delete('public/' . $dir . '/' . $oldImageName);
+            if($oldImageName !== $newImageName){
+                storage::delete('public/' . $dir . '/' . $oldImageName);
+            }
         }
 
         $brochure -> name = $request -> name;
@@ -156,7 +161,7 @@ class brochureController extends Controller
                 });
             }
 
-            // 検索検索を◯件表示
+            // 検索検索を10件表示
             $brochures = $query -> orderBy('id','asc') -> paginate(10);
 
             return view('index',['brochures' => $brochures,'keyword' => $keyword]);
