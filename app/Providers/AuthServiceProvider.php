@@ -23,13 +23,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // ロールIDが1なら一般ユーザー
+        // ロールが1なら管理者ユーザー
         Gate::define('admin-higher', function ($user) {
-            return ($user->role_id == 1);
+            return ($user->role == 1);
         });
-        // ロールIDが0なら管理者
+        // ロールが0なら一般ユーザー
         Gate::define('user-higher', function ($user) {
-            return ($user->role_id == 0);
+            return ($user->role == 0);
         });
     }
 }

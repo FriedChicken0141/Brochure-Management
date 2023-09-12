@@ -96,8 +96,6 @@ class brochureController extends Controller
 
         // ディレクトリ名
         $dir = 'cover';
-        // デフォルトの値を設定
-        $img_path = $brochure->img_path;
 
         // 画像の添付があれば、アップロードされたファイル名を取得
         if (!empty($request -> file('image'))){
@@ -110,15 +108,24 @@ class brochureController extends Controller
             if($oldImageName !== $newImageName){
                 storage::delete('public/' . $dir . '/' . $oldImageName);
             }
+
+            $brochure -> name = $request -> name;
+            $brochure -> area_id = $request -> area_id;
+            $brochure -> quantity = $request -> quantity;
+            $brochure -> detail = $request -> detail;
+            $brochure -> img_path = $img_path;
+
+            $brochure -> save();
+
+        } else {
+            // 画像添付がなければ、画像パスを除く部分を更新
+            $brochure -> name = $request -> name;
+            $brochure -> area_id = $request -> area_id;
+            $brochure -> quantity = $request -> quantity;
+            $brochure -> detail = $request -> detail;
+
+            $brochure -> save();
         }
-
-        $brochure -> name = $request -> name;
-        $brochure -> area_id = $request -> area_id;
-        $brochure -> quantity = $request -> quantity;
-        $brochure -> detail = $request -> detail;
-        $brochure -> img_path = $img_path;
-
-        $brochure -> save();
 
         return redirect('/brochures');
     }
