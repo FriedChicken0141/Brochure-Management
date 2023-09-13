@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->unsigned()->nullable(false);
             $table->string('name', 100)->nullable(false);
             $table->unsignedBigInteger('area_id')->nullable(false);
-            $table->integer('quantity')->unsigned()->nullable(); // 整数のみ許容
+            $table->integer('quantity')->unsigned()->nullable(false); // 整数のみ許容
             $table->string('detail', 100)->nullable();
             $table->string('img_path')->nullable();
             $table->timestamps();

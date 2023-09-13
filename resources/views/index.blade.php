@@ -16,12 +16,17 @@
                         <div class="input-group input-group-sm">
                             {{-- 検索機能 --}}
                             <div class="input-group-append">
-                                <form action="/brochures/search" method="get";>
+                                <form action="/brochures/search" method="get" class="search">
                                     @csrf
                                         <input type="text" name="keyword">
                                         <input type="submit" value="検索">
-                                    <a href="{{ url('brochures/register') }}" class="btn btn-default">新規登録</a>
                                 </form>
+                                {{-- 管理者に表示 --}}
+                                @can('admin-higher')
+                                <form action="/brochures/register" method="get" class="register">
+                                    <button type="submit" class="btn btn-default">新規登録</button>
+                                </form>
+                                @endcan
                             </div>
                         </div>
                     </div>
@@ -40,7 +45,9 @@
                                 <th style="width: 15%">詳細</th>
                                 <th style="width: 10%">プレビュー</th>
                                 <th style="width: 20%">@sortablelink('updated_at','更新日')</th>
+                                @can('admin-higher')
                                 <th style="width: 15%"></th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -58,7 +65,9 @@
                                         </form>
                                     </td>
                                     <td>{{ $brochure->updated_at }}</td>
-                                    <td class="button">
+                                    {{-- 管理者に表示 --}}
+                                    @can('admin-higher')
+                                    <td class="button-second">
                                         <form action="brochures/edit/{{$brochure->id}}" method="post">
                                             @csrf
                                             <button type="submit" class="btn btn-secondary btn-sm">編集</button>
@@ -68,6 +77,7 @@
                                             <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
                                         </form>
                                     </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>
@@ -84,4 +94,16 @@
 @stop
 
 @section('js')
+<script>
+    $(function (){
+        $(".btn-dell").click(function(){
+            if(confirm("本当に削除しますか？")){
+
+            }else{
+
+                return false;
+            }
+        });
+    });
+</script>
 @stop

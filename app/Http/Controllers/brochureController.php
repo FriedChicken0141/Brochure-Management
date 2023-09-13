@@ -96,24 +96,36 @@ class brochureController extends Controller
 
         // ディレクトリ名
         $dir = 'cover';
-        // アップロードされたファイル名を取得
-        $newImageName = $request -> file('image')->getClientOriginalName();
+
+        // 画像の添付があれば、アップロードされたファイル名を取得
+        if (!empty($request -> file('image'))){
+            $newImageName = $request -> file('image')->getClientOriginalName();
         // coverディレクトリに画像を保存
-        $img_path = $request -> file('image') -> store('public/' . $dir);
+            $img_path = $request -> file('image') -> store('public/' . $dir);
         // 以前の画像ファイル名を取得
-        $oldImageName = basename($brochure -> img_path);
+            $oldImageName = basename($brochure -> img_path);
         // 古い画像の名前と新しい画像の名前が一致しなければ、古い画像を削除
-        if($oldImageName !== $newImageName){
-            storage::delete('public/' . $dir . '/' . $oldImageName);
+            if($oldImageName !== $newImageName){
+                storage::delete('public/' . $dir . '/' . $oldImageName);
+            }
+
+            $brochure -> name = $request -> name;
+            $brochure -> area_id = $request -> area_id;
+            $brochure -> quantity = $request -> quantity;
+            $brochure -> detail = $request -> detail;
+            $brochure -> img_path = $img_path;
+
+            $brochure -> save();
+
+        } else {
+            // 画像添付がなければ、画像パスを除く部分を更新
+            $brochure -> name = $request -> name;
+            $brochure -> area_id = $request -> area_id;
+            $brochure -> quantity = $request -> quantity;
+            $brochure -> detail = $request -> detail;
+
+            $brochure -> save();
         }
-
-        $brochure -> name = $request -> name;
-        $brochure -> area_id = $request -> area_id;
-        $brochure -> quantity = $request -> quantity;
-        $brochure -> detail = $request -> detail;
-        $brochure -> img_path = $img_path;
-
-        $brochure -> save();
 
         return redirect('/brochures');
     }
@@ -156,7 +168,7 @@ class brochureController extends Controller
                 });
             }
 
-            // 検索検索を◯件表示
+            // 検索検索を10件表示
             $brochures = $query -> orderBy('id','asc') -> paginate(10);
 
             return view('index',['brochures' => $brochures,'keyword' => $keyword]);

@@ -296,6 +296,7 @@ return [
             'icon' => 'far fa-fw fa-file',
         ],
         [
+            'key'  => 'パンフレット登録_admin_only',
             'text' => 'パンフレット登録',
             'url'  => 'brochures/register',
             'icon' => 'fas fa-fw fa-pen',
