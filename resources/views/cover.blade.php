@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-10">
             <div class="cover">
-                <img src="{{ Storage::url($brochure->img_path) }}" alt="パンフレット表紙" width="40%">
+                <img src="{{ Cloudinary:url($brochure->img_path) }}" alt="パンフレット表紙" width="40%">
             </div>
         </div>
     </div>
