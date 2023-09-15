@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('quantity')->unsigned()->nullable(false); // 整数のみ許容
             $table->string('detail', 100)->nullable();
             $table->string('img_path')->nullable();
+            $table->string('img_public_id')->nullable();
             $table->timestamps();
 
             // id,user_id,name,areaカラムにインデックスを設定
