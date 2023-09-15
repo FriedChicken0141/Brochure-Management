@@ -170,7 +170,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // Cloudinaryのコード
         CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
-    ])->toArray(),
+
+    ],)->toArray(),
 
     /*
     |--------------------------------------------------------------------------
