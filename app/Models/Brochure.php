@@ -16,6 +16,7 @@ class brochure extends Model
         'quantity',
         'detail',
         'img_path',
+        'img_public_id',
         'updated_at',
     ];
 

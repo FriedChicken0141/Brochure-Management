@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Brochure;
 use App\Models\Area;
 use Illuminate\Support\Facades\Storage;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class brochureController extends Controller
 {
@@ -64,7 +65,10 @@ class brochureController extends Controller
         // アップロードされたファイル名を取得
         $request -> file('image')->getClientOriginalName();
         // coverディレクトリに画像を保存
-        $img_path = $request -> file('image') -> store('public/' . $dir);
+        $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
+            'folder' => $dir,]);
+
+        // $img_path = $request -> file('image') -> store('public/' . $dir);
 
         // DBへ登録
         brochure::create([
@@ -73,7 +77,8 @@ class brochureController extends Controller
             'area_id' => $request->area_id,
             'quantity' => $request->quantity,
             'detail' => $request->detail,
-            'img_path' => $img_path,
+            'img_path' =>  $uploadedFile->getSecurePath(),
+            'img_public_id' => $uploadedFile->getPublicId(),
         ]);
 
 
@@ -101,19 +106,21 @@ class brochureController extends Controller
         if (!empty($request -> file('image'))){
             $newImageName = $request -> file('image')->getClientOriginalName();
         // coverディレクトリに画像を保存
-            $img_path = $request -> file('image') -> store('public/' . $dir);
+            $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
+            'folder' => $dir,]);
         // 以前の画像ファイル名を取得
             $oldImageName = basename($brochure -> img_path);
         // 古い画像の名前と新しい画像の名前が一致しなければ、古い画像を削除
             if($oldImageName !== $newImageName){
-                storage::delete('public/' . $dir . '/' . $oldImageName);
+                Cloudinary::delete('public/' . $dir . '/' . $oldImageName);
             }
 
             $brochure -> name = $request -> name;
             $brochure -> area_id = $request -> area_id;
             $brochure -> quantity = $request -> quantity;
             $brochure -> detail = $request -> detail;
-            $brochure -> img_path = $img_path;
+            $brochure -> img_path = $uploadedFile->getSecurePath();
+            $brochure -> img_public_id = $uploadedFile->getPublicId();
 
             $brochure -> save();
 
