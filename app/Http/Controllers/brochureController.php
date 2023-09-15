@@ -105,14 +105,14 @@ class brochureController extends Controller
         // 画像の添付があれば、アップロードされたファイル名を取得
         if (!empty($request -> file('image'))){
             $newImageName = $request -> file('image')->getClientOriginalName();
+            // 以前の画像ファイル名を取得
+            $oldImageName = basename($brochure -> img_path);
         // coverディレクトリに画像を保存
             $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
             'folder' => $dir,]);
-        // 以前の画像ファイル名を取得
-            $oldImageName = basename($brochure -> img_path);
         // 古い画像の名前と新しい画像の名前が一致しなければ、古い画像を削除
             if($oldImageName !== $newImageName){
-                Cloudinary::delete('public/' . $dir . '/' . $oldImageName);
+                Cloudinary::destroy('public/' . $dir . '/' . $oldImageName);
             }
 
             $brochure -> name = $request -> name;
@@ -151,7 +151,7 @@ class brochureController extends Controller
         $brochure -> delete();
 
         if (!empty($ImageName)){
-            storage::delete('public/' . $dir . '/' . $ImageName);
+            Cloudinary::destroy('public/' . $dir . '/' . $ImageName);
         }
 
         return redirect('/brochures');
