@@ -112,7 +112,7 @@ class brochureController extends Controller
             'folder' => $dir,]);
         // 古い画像の名前と新しい画像の名前が一致しなければ、古い画像を削除
             if($oldImageName !== $newImageName){
-                Cloudinary::destroy('public/' . $dir . '/' . $oldImageName);
+                Cloudinary::destroy($brochure -> img_public_id);
             }
 
             $brochure -> name = $request -> name;
@@ -150,8 +150,8 @@ class brochureController extends Controller
 
         $brochure -> delete();
 
-        if (!empty($ImageName)){
-            Cloudinary::destroy('public/' . $dir . '/' . $ImageName);
+        if (!empty($brochure -> img_public_id)){
+            Cloudinary::destroy($brochure -> img_public_id);
         }
 
         return redirect('/brochures');
