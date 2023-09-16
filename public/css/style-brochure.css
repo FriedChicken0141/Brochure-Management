@@ -7,22 +7,26 @@
     padding-left: 12px!important;
 }
 
+.table thead th {
+    border-bottom: 0px solid #dee2e6;
+}
+
 .search {
-    padding-top: 6.5px!important;
-    padding-right: 30px!important;
+    padding-top: 6.5px;
+    padding-right: 30px;
 }
 
 .card-title {
-    padding-top: 7px!important;
-    font-size: 17px
+    padding-top: 7px;
+    font-size: 17px;
 }
 
 .register {
-    padding-right: 12px!important;
+    padding-right: 12px;
 }
 
 .card-header {
-    padding: 12px!important;
+    padding: 12px;
 }
 
 .button {
@@ -32,13 +36,13 @@
 }
 
 .button-second {
-    display: flex!important;
-    justify-content: space-between!important;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding-right: 12px!important;
+    padding-right: 12px;
 }
 
 form {
-    padding: 3px!important;
+    padding: 3px;
 }
 

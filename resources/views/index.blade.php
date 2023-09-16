@@ -39,12 +39,12 @@
                         <thead>
                             <tr>
                                 <th style="width: 5%">@sortablelink('id','ID')</th>
-                                <th style="width: 20%">名前</th>
-                                <th style="width: 15%">@sortablelink('area_id','該当市町（県）')</th>
+                                <th style="width: 25%">名前</th>
+                                <th style="width: 10%">@sortablelink('area_id','該当市町（県）')</th>
                                 <th style="width: 10%">@sortablelink('quantity','残数')</th>
-                                <th style="width: 15%">詳細</th>
+                                <th style="width: 20%">詳細</th>
                                 <th style="width: 10%">プレビュー</th>
-                                <th style="width: 20%">@sortablelink('updated_at','更新日')</th>
+                                <th style="width: 15%">@sortablelink('updated_at','更新日')</th>
                                 @can('admin-higher')
                                 <th style="width: 15%"></th>
                                 @endcan
