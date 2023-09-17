@@ -64,7 +64,7 @@
                                             <button type="submit" class="btn btn-info btn-sm">表紙</button>
                                         </form>
                                     </td>
-                                    <td>{{ $brochure->updated_at->format('Y年m月d日 H時m分') }}</td>
+                                    <td>{{ $brochure->updated_at->format('Y年m月d日 H時i分') }}</td>
                                     {{-- 管理者に表示 --}}
                                     @can('admin-higher')
                                     <td class="button-second">
