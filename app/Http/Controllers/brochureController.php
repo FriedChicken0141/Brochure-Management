@@ -62,27 +62,39 @@ class brochureController extends Controller
 
         // ディレクトリ名
         $dir = 'cover';
-        // アップロードされたファイル名を取得
-        $request -> file('image')->getClientOriginalName();
-        // coverディレクトリに画像を保存
-        $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
-            'folder' => $dir,]);
+        // 画像の添付があれば、アップロードされたファイル名を取得
+        if (!empty($request -> file('image'))){
+            $request -> file('image')->getClientOriginalName();
+                // 画像をアップロード
+            $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
+                'folder' => $dir,]);
 
-        // $img_path = $request -> file('image') -> store('public/' . $dir);
+            // $img_path = $request -> file('image') -> store('public/' . $dir);
 
-        // DBへ登録
-        brochure::create([
-            'user_id' => $user_id,
-            'name' => $request->name,
-            'area_id' => $request->area_id,
-            'quantity' => $request->quantity,
-            'detail' => $request->detail,
-            'img_path' =>  $uploadedFile->getSecurePath(),
-            'img_public_id' => $uploadedFile->getPublicId(),
-        ]);
-
+            // DBへ登録
+            brochure::create([
+                'user_id' => $user_id,
+                'name' => $request->name,
+                'area_id' => $request->area_id,
+                'quantity' => $request->quantity,
+                'detail' => $request->detail,
+                'img_path' =>  $uploadedFile->getSecurePath(),
+                'img_public_id' => $uploadedFile->getPublicId(),
+            ]);
 
             return redirect('/brochures');
+
+        } else {
+            brochure::create([
+                'user_id' => $user_id,
+                'name' => $request->name,
+                'area_id' => $request->area_id,
+                'quantity' => $request->quantity,
+                'detail' => $request->detail,
+            ]);
+
+            return redirect('/brochures');
+        }
     }
 
     // パンフレット編集画面
