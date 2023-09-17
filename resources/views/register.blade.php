@@ -31,6 +31,7 @@
                         <div class="form-group">
                             <label for="area">該当市町（県）</label>
                             <select type="area" class="form-control" name="area_id" required>
+                                {{-- valueの中を空にすることで空欄を選択することをできなくする --}}
                                 <option value=""disabled selected>選択してください</option>
                                 @foreach($areas as $area)
                                     <option value="{{ $area->id }}">{{ $area->area_name }}</option>
