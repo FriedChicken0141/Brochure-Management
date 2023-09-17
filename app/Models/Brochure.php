@@ -30,6 +30,9 @@ class brochure extends Model
         // return $this->hasOne(Area::class,);
         return $this->belongsTo(Area::class);
     }
+
+    // 作成日時と更新日時のカラムを更新
+    public $timestamps = true;
 }
 
 //     /**
