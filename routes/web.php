@@ -28,6 +28,8 @@ Route::prefix('brochures')->group(function () {
     Route::get('/cover/{id}', [App\Http\Controllers\brochureController::class, 'cover']);
     // 検索機能
     Route::get('/search', [App\Http\Controllers\brochureController::class, 'search']);
+    // 承認機能
+    Route::get('/Consent', [App\Http\Controllers\brochureController::class, 'Consent']);
 });
 
 // ユーザー権限設定
@@ -44,6 +46,15 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
         Route::post('/delete/{id}', [App\Http\Controllers\brochureController::class, 'destroy']);
     });
 });
+
+Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
+    Route::prefix('brochures')->group(function () {
+        // 申請画面
+        Route::post('/request/{id}', [App\Http\Controllers\brochureController::class, 'request']);
+        Route::post('/application', [App\Http\Controllers\brochureController::class, 'application']);
+    });
+});
+
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -78,6 +78,13 @@
                                         </form>
                                     </td>
                                     @endcan
+                                    @can('user-higher')
+                                    <td class="button-third">
+                                        <form action="brochures/request/{{$brochure->id}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary btn-sm">使用申請</button>
+                                        </form>
+                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>

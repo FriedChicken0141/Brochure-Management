@@ -291,15 +291,21 @@ return [
 
     'menu' => [
         [
-            'text' => 'パンフレット一覧',
+            'text' => '一覧',
             'url'  => 'brochures',
             'icon' => 'far fa-fw fa-file',
         ],
         [
             'key'  => 'パンフレット登録_admin_only',
-            'text' => 'パンフレット登録',
+            'text' => '新規登録',
             'url'  => 'brochures/register',
             'icon' => 'fas fa-fw fa-pen',
+        ],
+        [
+            'key'  => '使用申請一覧',
+            'text' => '使用申請',
+            'url'  => 'brochures/Consent',
+            'icon' => 'far fa-fw fa-envelope',
         ],
 
         // AdminLTEデフォルト
