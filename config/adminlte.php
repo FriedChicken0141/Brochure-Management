@@ -304,8 +304,14 @@ return [
         [
             'key'  => '使用申請一覧_admin_only',
             'text' => '使用申請',
-            'url'  => 'brochures/Consent',
+            'url'  => 'brochures/consent',
             'icon' => 'far fa-fw fa-envelope',
+        ],
+        [
+            'key'  => '決裁履歴一覧',
+            'text' => '決裁履歴',
+            'url'  => 'brochures/result',
+            'icon' => 'far fa-fw fa-envelope-open',
         ],
 
         // AdminLTEデフォルト

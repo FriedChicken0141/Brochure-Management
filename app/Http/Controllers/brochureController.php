@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Approval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Brochure;
@@ -12,7 +11,7 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 use function App\Models\brochures;
 
-class brochureController extends Controller
+class BrochureController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -194,60 +193,6 @@ class brochureController extends Controller
             $brochures = $query -> orderBy('id','asc') -> paginate(10);
 
             return view('index',['brochures' => $brochures,'keyword' => $keyword]);
-
-    }
-    // 申請機能
-    public function request($id)
-    {
-        $brochure = Brochure::findOrFail($id);
-
-        return view('request', ['brochures' => $brochure]);
-    }
-    public function application(Request $request)
-    {
-        // userテーブルからidを取得
-        $user_id = auth() -> user() -> id;
-
-        $brochure = Brochure::findOrFail($request -> id);
-
-        // DBへ登録
-        Approval::create([
-            'user_id' => $user_id,
-            'brochure_id' => $brochure->id,
-            'quantity' => $request->quantity,
-            'detail' => $request->detail,
-        ]);
-
-        return redirect('/brochures');
-    }
-
-    public function Consent(Request $request)
-    {
-        $approvals = approval::all();
-
-        return view('Consent',[
-            'approvals' => $approvals
-        ]);
-    }
-    public function approval($id)
-    {
-        $approvals = approval::findOrFail($id);
-        // カラムの値を承認に変更
-        $approvals -> status = '承認';
-        // 保存
-        $approvals -> save();
-
-        return redirect('/brochures/Consent');
-    }
-    public function disapproval($id)
-    {
-        $approvals = approval::findOrFail($id);
-        // カラムの値を承認に変更
-        $approvals -> status = '否認';
-        // 保存
-        $approvals -> save();
-
-        return redirect('/brochures/Consent');
     }
 
 }
