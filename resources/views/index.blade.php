@@ -39,14 +39,14 @@
                         <thead>
                             <tr>
                                 <th style="width: 5%">@sortablelink('id','ID')</th>
-                                <th style="width: 25%">名前</th>
+                                <th style="width: 20%">名前</th>
                                 <th style="width: 10%">@sortablelink('area_id','該当市町（県）')</th>
                                 <th style="width: 10%">@sortablelink('quantity','残数')</th>
-                                <th style="width: 20%">詳細</th>
+                                <th style="width: 15%">詳細</th>
                                 <th style="width: 10%">プレビュー</th>
                                 <th style="width: 15%">@sortablelink('updated_at','更新日')</th>
                                 @can('admin-higher')
-                                <th style="width: 15%"></th>
+                                <th style="width: 10%"></th>
                                 @endcan
                             </tr>
                         </thead>
@@ -65,25 +65,27 @@
                                         </form>
                                     </td>
                                     <td>{{ $brochure->updated_at->format('Y年m月d日 H時i分') }}</td>
-                                    {{-- 管理者に表示 --}}
+                                    {{-- 管理者のみ表示 --}}
                                     @can('admin-higher')
-                                    <td class="button-second">
-                                        <form action="brochures/edit/{{$brochure->id}}" method="post">
-                                            @csrf
-                                            <button type="submit" class="btn btn-secondary btn-sm">編集</button>
-                                        </form>
-                                        <form action="brochures/delete/{{$brochure->id}}" method="post">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
-                                        </form>
-                                    </td>
+                                        <td class="button-second">
+                                            <form action="brochures/edit/{{$brochure->id}}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-secondary btn-sm">編集</button>
+                                            </form>
+                                            <form action="brochures/delete/{{$brochure->id}}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
+                                            </form>
+                                        </td>
                                     @endcan
+                                    {{-- ユーザーのみ表示 --}}
                                     @can('user-higher')
-                                    <td class="button-third">
-                                        <form action="brochures/request/{{$brochure->id}}" method="post">
-                                            @csrf
-                                            <button type="submit" class="btn btn-primary btn-sm">使用申請</button>
-                                        </form>
+                                        <td class="button-third">
+                                            <form action="brochures/request/{{$brochure->id}}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary btn-sm">使用申請</button>
+                                            </form>
+                                        </td>
                                     @endcan
                                 </tr>
                             @endforeach

@@ -44,6 +44,9 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
         Route::post('/update', [App\Http\Controllers\brochureController::class, 'update']);
         // 削除画面
         Route::post('/delete/{id}', [App\Http\Controllers\brochureController::class, 'destroy']);
+        // 申請状況更新(承認or否認)
+        Route::post('/approval/{id}', [App\Http\Controllers\brochureController::class, 'approval']);
+        Route::post('/disapproval/{id}', [App\Http\Controllers\brochureController::class, 'disapproval']);
     });
 });
 

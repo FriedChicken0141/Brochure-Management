@@ -229,5 +229,25 @@ class brochureController extends Controller
             'approvals' => $approvals
         ]);
     }
+    public function approval($id)
+    {
+        $approvals = approval::findOrFail($id);
+        // カラムの値を承認に変更
+        $approvals -> status = '承認';
+        // 保存
+        $approvals -> save();
+
+        return redirect('/brochures/Consent');
+    }
+    public function disapproval($id)
+    {
+        $approvals = approval::findOrFail($id);
+        // カラムの値を承認に変更
+        $approvals -> status = '否認';
+        // 保存
+        $approvals -> save();
+
+        return redirect('/brochures/Consent');
+    }
 
 }

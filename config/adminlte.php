@@ -302,7 +302,7 @@ return [
             'icon' => 'fas fa-fw fa-pen',
         ],
         [
-            'key'  => '使用申請一覧',
+            'key'  => '使用申請一覧_admin_only',
             'text' => '使用申請',
             'url'  => 'brochures/Consent',
             'icon' => 'far fa-fw fa-envelope',
