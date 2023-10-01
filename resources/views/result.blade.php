@@ -32,7 +32,7 @@
                         </thead>
                         <tbody>
                             @foreach ($approvals as $approval)
-                                @if($approval -> status == "承認" || $approval -> status == "否認" )
+                                @if($approval -> status == "承認")
                                     <tr>
                                         <td>{{ $approval->brochure->name }}</td>
                                         <td>{{ $approval->quantity}}</td>

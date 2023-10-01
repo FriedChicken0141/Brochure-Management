@@ -38,11 +38,10 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th style="width: 5%">@sortablelink('id','ID')</th>
                                 <th style="width: 20%">パンフレット名</th>
                                 <th style="width: 10%">@sortablelink('area_id','該当市町（県）')</th>
                                 <th style="width: 10%">@sortablelink('quantity','残数')</th>
-                                <th style="width: 15%">詳細</th>
+                                <th style="width: 20%">詳細</th>
                                 <th style="width: 10%">プレビュー</th>
                                 <th style="width: 15%">@sortablelink('updated_at','更新日')</th>
                                 @can('admin-higher')
@@ -53,7 +52,6 @@
                         <tbody>
                             @foreach ($brochures as $brochure)
                                 <tr>
-                                    <td>{{ $brochure->id }}</td>
                                     <td>{{ $brochure->name }}</td>
                                     <td>{{ $brochure->area->area_name }}</td>
                                     <td>{{ $brochure->quantity }}</td>

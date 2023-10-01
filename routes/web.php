@@ -38,6 +38,9 @@ Route::prefix('brochures')->group(function () {
 // 管理者のみ
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     Route::prefix('brochures')->group(function () {
+
+        // データベース関係
+
         // 登録
         Route::get('/register', [App\Http\Controllers\BrochureController::class, 'register']);
         Route::post('/add', [App\Http\Controllers\BrochureController::class, 'add']);
@@ -46,6 +49,9 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
         Route::post('/update', [App\Http\Controllers\BrochureController::class, 'update']);
         // 削除
         Route::post('/delete/{id}', [App\Http\Controllers\BrochureController::class, 'destroy']);
+
+        // -------ワークフロー関係--------
+
         // 申請状況更新(承認or否認)
         Route::post('/approval/{id}', [App\Http\Controllers\WorkFlowController::class, 'approval']);
         Route::post('/disapproval/{id}', [App\Http\Controllers\WorkFlowController::class, 'disapproval']);
@@ -54,11 +60,17 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     });
 });
 
+// ユーザーのみ
 Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     Route::prefix('brochures')->group(function () {
-        // 申請画面
+
+        // -------ワークフロー関係--------
+
+        // 申請
         Route::post('/request/{id}', [App\Http\Controllers\WorkFlowController::class, 'request']);
         Route::post('/application', [App\Http\Controllers\WorkFlowController::class, 'application']);
+        // 申請削除
+        Route::post('/consent/delete/{id}', [App\Http\Controllers\WorkFlowController::class, 'destroy']);
     });
 });
 

@@ -35,7 +35,7 @@
                         </thead>
                         <tbody>
                             @foreach ($approvals as $approval)
-                                @if($approval -> status == "申請中")
+                                @if($approval -> status == "申請中" || $approval -> status == "差戻")
                                     <tr>
                                         <td>{{ $approval->brochure->name }}</td>
                                         <td>{{ $approval->quantity}}</td>
@@ -56,13 +56,14 @@
                                             </form>
                                         </td>
                                         @endcan
+                                        {{-- ユーザーのみ表示 --}}
                                         @can('user-higher')
                                         <td class="button-second">
-                                            <form action="brochures/edit/{{$brochure->id}}" method="post">
+                                            <form action="consent/edit/{{$approval->id}}" method="post">
                                                 @csrf
                                                 <button type="submit" class="btn btn-secondary btn-sm">編集</button>
                                             </form>
-                                            <form action="brochures/delete/{{$brochure->id}}" method="post">
+                                            <form action="consent/delete/{{$approval->id}}" method="post">
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
                                             </form>
@@ -98,6 +99,16 @@
     $(function (){
         $(".btn-secondary").click(function(){
             if(confirm("この申請を否認します。")){
+
+            }else{
+
+                return false;
+            }
+        });
+    });
+    $(function (){
+        $(".btn-dell").click(function(){
+            if(confirm("この申請を削除しますか？")){
 
             }else{
 

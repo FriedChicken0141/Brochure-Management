@@ -35,6 +35,7 @@ class WorkFlowController extends Controller
             return redirect('/brochures');
         }
 
+        // 申請一覧画面表示
         public function Consent(Request $request)
         {
             $approvals = approval::all();
@@ -50,14 +51,23 @@ class WorkFlowController extends Controller
             $approvals -> status = '承認';
             // 保存
             $approvals -> save();
+
+            $approvedQuantity = $approvals -> quantity;
+
+            $brochure = Brochure::findOrFail($approvals -> brochure_id);
+
+            $Quantity = $brochure -> quantity - $approvedQuantity;
+
+            $brochure -> update(['quantity' => $Quantity]);
+
             // 決裁履歴へ遷移
             return redirect('/brochures/result');
         }
         public function disapproval($id)
         {
-            $approvals = approval::findOrFail($id);
+            $approvals = Approval::findOrFail($id);
             // カラムの値を承認に変更
-            $approvals -> status = '否認';
+            $approvals -> status = '差戻';
             // 保存
             $approvals -> save();
 
@@ -65,20 +75,39 @@ class WorkFlowController extends Controller
         }
         public function result(Request $request)
         {
-            $approvals = approval::all();
+            $approvals = Approval::all();
 
             return view('result',[
                 'approvals' => $approvals
             ]);
         }
+        // 一度、承認した申請を差し戻す
         public function remand($id)
         {
-            $approvals = approval::findOrFail($id);
-            // カラムの値を承認に変更
-            $approvals -> status = '申請中';
+            $approvals = Approval::findOrFail($id);
+            // カラムの値を申請中に変更
+            $approvals -> status = '差戻';
             // 保存
             $approvals -> save();
+
+            $requestQuantity = $approvals -> quantity;
+
+            $brochure = Brochure::findOrFail($approvals -> brochure_id);
+
+            $formerQuantity = $brochure -> quantity + $requestQuantity;
+
+            $brochure -> update(['quantity' => $formerQuantity]);
+
             // 申請一覧へ遷移
+            return redirect('/brochures/consent');
+        }
+            // 申請削除
+        public function destroy(Request $request)
+        {
+            $approvals = Approval::findOrFail($request -> id);
+
+            $approvals -> delete();
+
             return redirect('/brochures/consent');
         }
 }
