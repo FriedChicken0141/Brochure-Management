@@ -35,7 +35,7 @@
                         </thead>
                         <tbody>
                             @foreach ($approvals as $approval)
-                                @if($approval -> status == "申請中" || $approval -> status == "差戻")
+                                @if($approval -> status == "申請中" || $approval -> status == "差戻" || $approval -> status == "再申請中")
                                     <tr>
                                         <td>{{ $approval->brochure->name }}</td>
                                         <td>{{ $approval->quantity}}</td>
@@ -52,7 +52,7 @@
                                             </form>
                                             <form action="disapproval/{{$approval->id}}" method="post">
                                                 @csrf
-                                                <button type="submit" name="status" class="btn btn-secondary btn-sm " value="rejected">否認</button>
+                                                <button type="submit" name="status" class="btn btn-secondary btn-sm btn-reject " value="rejected">否認</button>
                                             </form>
                                         </td>
                                         @endcan
@@ -68,7 +68,7 @@
                                                 <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
                                             </form>
                                         </td>
-                                    @endcan
+                                        @endcan
                                     </tr>
                                     @endif
                             @endforeach
@@ -97,7 +97,7 @@
         });
     });
     $(function (){
-        $(".btn-secondary").click(function(){
+        $(".btn-reject").click(function(){
             if(confirm("この申請を否認します。")){
 
             }else{

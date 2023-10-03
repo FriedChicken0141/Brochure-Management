@@ -110,4 +110,30 @@ class WorkFlowController extends Controller
 
             return redirect('/brochures/consent');
         }
+            // 申請編集
+        public function reapplication(Request $request)
+        {
+            $approvals = Approval::findOrFail($request -> id);
+            $brochures = Brochure::all();
+
+            return view('reapplication',['approvals' => $approvals,'brochures' => $brochures]);
+        }
+        public function update(request $request)
+        {
+            $approvals = Approval::findOrFail($request -> id);
+
+            $oldStatus = $approvals -> status;
+
+            $approvals -> quantity = $request -> quantity;
+            $approvals -> detail = $request -> detail;
+            $approvals -> updated_at = $request -> updated_at;
+
+            if($oldStatus === '差戻'){
+                $approvals -> status = '再申請中';
+            }
+
+            $approvals -> save();
+
+            return redirect('/brochures/consent');
+        }
 }
