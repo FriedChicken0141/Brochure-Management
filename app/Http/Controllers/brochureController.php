@@ -48,9 +48,10 @@ class BrochureController extends Controller
         ]);
     }
 
-    // areasテーブルから情報を取得後、新規登録画面を表示
+    // 新規登録画面を表示
     public function register(Request $request)
     {
+        // areasテーブルから情報を取得
         $areas = Area::all();
 
         return view('register',['areas' => $areas]);
