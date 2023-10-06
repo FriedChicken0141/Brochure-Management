@@ -13,6 +13,11 @@
                 <div class="card-header">
                     <h3 class="card-title">申請状況</h3>
                 </div>
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
 
                 {{-- 一覧表示部分 --}}
                 <div class="card-body table-responsive p-0">
@@ -50,10 +55,12 @@
                                                 @csrf
                                                 <button type="submit" name="status" class="btn btn-primary btn-sm" value="approved">承認</button>
                                             </form>
+
                                             <form action="disapproval/{{$approval->id}}" method="post">
                                                 @csrf
                                                 <button type="submit" name="status" class="btn btn-secondary btn-sm btn-reject " value="rejected">否認</button>
                                             </form>
+
                                         </td>
                                         @endcan
                                         {{-- ユーザーのみ表示 --}}

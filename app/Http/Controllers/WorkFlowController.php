@@ -44,25 +44,35 @@ class WorkFlowController extends Controller
                 'approvals' => $approvals
             ]);
         }
+
+        // 申請を承認
         public function approval($id)
         {
             $approvals = approval::findOrFail($id);
-            // カラムの値を承認に変更
-            $approvals -> status = '承認';
-            // 保存
-            $approvals -> save();
 
+            // 在庫数から使用数を減算
             $approvedQuantity = $approvals -> quantity;
 
             $brochure = Brochure::findOrFail($approvals -> brochure_id);
 
             $Quantity = $brochure -> quantity - $approvedQuantity;
 
+            if($Quantity < 0){
+                return redirect() -> back() -> with('error','在庫数が不足しているため承認できませんでした。');
+            }
+
             $brochure -> update(['quantity' => $Quantity]);
+
+            // カラムの値を承認に変更
+            $approvals -> status = '承認';
+            // 保存
+            $approvals -> save();
 
             // 決裁履歴へ遷移
             return redirect('/brochures/result');
         }
+
+        // 申請を否認（差戻）
         public function disapproval($id)
         {
             $approvals = Approval::findOrFail($id);
@@ -73,6 +83,8 @@ class WorkFlowController extends Controller
 
             return redirect('/brochures/result');
         }
+
+        // 承認履歴画面を表示
         public function result(Request $request)
         {
             $approvals = Approval::all();
@@ -81,7 +93,8 @@ class WorkFlowController extends Controller
                 'approvals' => $approvals
             ]);
         }
-        // 一度、承認した申請を差し戻す
+
+        // 承認申請を差戻し
         public function remand($id)
         {
             $approvals = Approval::findOrFail($id);
@@ -89,7 +102,7 @@ class WorkFlowController extends Controller
             $approvals -> status = '差戻';
             // 保存
             $approvals -> save();
-
+            // 承認した使用数を在庫数に加算
             $requestQuantity = $approvals -> quantity;
 
             $brochure = Brochure::findOrFail($approvals -> brochure_id);
@@ -101,7 +114,8 @@ class WorkFlowController extends Controller
             // 申請一覧へ遷移
             return redirect('/brochures/consent');
         }
-            // 申請削除
+
+        // 申請削除
         public function destroy(Request $request)
         {
             $approvals = Approval::findOrFail($request -> id);
@@ -110,7 +124,8 @@ class WorkFlowController extends Controller
 
             return redirect('/brochures/consent');
         }
-            // 申請編集
+
+        // 申請編集
         public function reapplication(Request $request)
         {
             $approvals = Approval::findOrFail($request -> id);
@@ -118,16 +133,20 @@ class WorkFlowController extends Controller
 
             return view('reapplication',['approvals' => $approvals,'brochures' => $brochures]);
         }
+
+        // 申請内容を更新
         public function update(request $request)
         {
             $approvals = Approval::findOrFail($request -> id);
-
+            // 現在のステータスカラムを情報を取得
             $oldStatus = $approvals -> status;
 
+            // 編集した申請内容を格納
             $approvals -> quantity = $request -> quantity;
             $approvals -> detail = $request -> detail;
             $approvals -> updated_at = $request -> updated_at;
 
+            // 現在のステータスが差戻なら、再申請中に変更
             if($oldStatus === '差戻'){
                 $approvals -> status = '再申請中';
             }
