@@ -9,7 +9,9 @@ use App\Models\Area;
 use Illuminate\Support\Facades\Storage;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
-class brochureController extends Controller
+use function App\Models\brochures;
+
+class BrochureController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -191,7 +193,6 @@ class brochureController extends Controller
             $brochures = $query -> orderBy('id','asc') -> paginate(10);
 
             return view('index',['brochures' => $brochures,'keyword' => $keyword]);
-
     }
 
 }
