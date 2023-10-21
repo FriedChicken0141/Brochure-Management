@@ -80,4 +80,17 @@
 @stop
 
 @section('js')
+<script>
+    $(function (){
+        $(".btn").click(function(){
+            if(confirm("編集を完了しますか？")){
+
+            }else{
+
+                return false;
+
+            }
+        });
+    });
+</script>
 @stop

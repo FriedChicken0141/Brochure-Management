@@ -62,6 +62,14 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
 
         // ユーザー管理
         Route::get('/user', [App\Http\Controllers\UserController::class, 'user']);
+
+        // -------ワークフロー関係--------
+  
+        // 申請状況更新(承認or否認（差戻）)
+        Route::post('/approval/{id}', [App\Http\Controllers\WorkFlowController::class, 'approval']);
+        Route::post('/disapproval/{id}', [App\Http\Controllers\WorkFlowController::class, 'disapproval']);
+        // 承認差戻
+        Route::post('/remand/{id}', [App\Http\Controllers\WorkFlowController::class, 'remand']);
     });
 });
 

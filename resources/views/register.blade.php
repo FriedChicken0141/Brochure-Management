@@ -24,14 +24,15 @@
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name">名前</label>
-                            <input type="text" class="form-control" name="name" >
+                            <label for="name">パンフレット名</label>
+                            <input type="text" class="form-control" name="name" required>
                         </div>
 
                         <div class="form-group">
                             <label for="area">該当市町（県）</label>
-                            <select type="area" class="form-control" name="area_id" >
-                                <option value="disabled selected"></option>
+                            <select type="area" class="form-control" name="area_id" required>
+                                {{-- valueの中を空にすることで空欄を選択することをできなくする --}}
+                                <option value=""disabled selected>選択してください</option>
                                 @foreach($areas as $area)
                                     <option value="{{ $area->id }}">{{ $area->area_name }}</option>
                                 @endforeach
@@ -40,7 +41,7 @@
 
                         <div class="form-group">
                             <label for="detail">残数</label>
-                            <input type="text" class="form-control" name="quantity" >
+                            <input type="text" class="form-control" name="quantity" required>
                         </div>
 
                         <div class="form-group">

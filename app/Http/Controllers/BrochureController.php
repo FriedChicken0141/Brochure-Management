@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Brochure;
 use App\Models\Area;
 use Illuminate\Support\Facades\Storage;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
-class brochureController extends Controller
+use function App\Models\brochures;
+
+class BrochureController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -61,23 +64,39 @@ class brochureController extends Controller
 
         // ディレクトリ名
         $dir = 'cover';
-        // アップロードされたファイル名を取得
-        $request -> file('image')->getClientOriginalName();
-        // coverディレクトリに画像を保存
-        $img_path = $request -> file('image') -> store('public/' . $dir);
+        // 画像の添付があれば、アップロードされたファイル名を取得
+        if (!empty($request -> file('image'))){
+            $request -> file('image')->getClientOriginalName();
+                // 画像をアップロード
+            $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
+                'folder' => $dir,]);
 
-        // DBへ登録
-        brochure::create([
-            'user_id' => $user_id,
-            'name' => $request->name,
-            'area_id' => $request->area_id,
-            'quantity' => $request->quantity,
-            'detail' => $request->detail,
-            'img_path' => $img_path,
-        ]);
+            // $img_path = $request -> file('image') -> store('public/' . $dir);
 
+            // DBへ登録
+            brochure::create([
+                'user_id' => $user_id,
+                'name' => $request->name,
+                'area_id' => $request->area_id,
+                'quantity' => $request->quantity,
+                'detail' => $request->detail,
+                'img_path' =>  $uploadedFile->getSecurePath(),
+                'img_public_id' => $uploadedFile->getPublicId(),
+            ]);
 
             return redirect('/brochures');
+
+        } else {
+            brochure::create([
+                'user_id' => $user_id,
+                'name' => $request->name,
+                'area_id' => $request->area_id,
+                'quantity' => $request->quantity,
+                'detail' => $request->detail,
+            ]);
+
+            return redirect('/brochures');
+        }
     }
 
     // パンフレット編集画面
@@ -96,24 +115,38 @@ class brochureController extends Controller
 
         // ディレクトリ名
         $dir = 'cover';
-        // アップロードされたファイル名を取得
-        $newImageName = $request -> file('image')->getClientOriginalName();
+
+        // 画像の添付があれば、アップロードされたファイル名を取得
+        if (!empty($request -> file('image'))){
+            $newImageName = $request -> file('image')->getClientOriginalName();
+            // 以前の画像ファイル名を取得
+            $oldImageName = basename($brochure -> img_path);
         // coverディレクトリに画像を保存
-        $img_path = $request -> file('image') -> store('public/' . $dir);
-        // 以前の画像ファイル名を取得
-        $oldImageName = basename($brochure -> img_path);
+            $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
+            'folder' => $dir,]);
         // 古い画像の名前と新しい画像の名前が一致しなければ、古い画像を削除
-        if($oldImageName !== $newImageName){
-            storage::delete('public/' . $dir . '/' . $oldImageName);
+            if($oldImageName !== $newImageName){
+                Cloudinary::destroy($brochure -> img_public_id);
+            }
+
+            $brochure -> name = $request -> name;
+            $brochure -> area_id = $request -> area_id;
+            $brochure -> quantity = $request -> quantity;
+            $brochure -> detail = $request -> detail;
+            $brochure -> img_path = $uploadedFile->getSecurePath();
+            $brochure -> img_public_id = $uploadedFile->getPublicId();
+
+            $brochure -> save();
+
+        } else {
+            // 画像添付がなければ、画像パスを除く部分を更新
+            $brochure -> name = $request -> name;
+            $brochure -> area_id = $request -> area_id;
+            $brochure -> quantity = $request -> quantity;
+            $brochure -> detail = $request -> detail;
+
+            $brochure -> save();
         }
-
-        $brochure -> name = $request -> name;
-        $brochure -> area_id = $request -> area_id;
-        $brochure -> quantity = $request -> quantity;
-        $brochure -> detail = $request -> detail;
-        $brochure -> img_path = $img_path;
-
-        $brochure -> save();
 
         return redirect('/brochures');
     }
@@ -131,8 +164,8 @@ class brochureController extends Controller
 
         $brochure -> delete();
 
-        if (!empty($ImageName)){
-            storage::delete('public/' . $dir . '/' . $ImageName);
+        if (!empty($brochure -> img_public_id)){
+            Cloudinary::destroy($brochure -> img_public_id);
         }
 
         return redirect('/brochures');
@@ -156,11 +189,10 @@ class brochureController extends Controller
                 });
             }
 
-            // 検索検索を◯件表示
+            // 検索検索を10件表示
             $brochures = $query -> orderBy('id','asc') -> paginate(10);
 
             return view('index',['brochures' => $brochures,'keyword' => $keyword]);
-
     }
 
 }

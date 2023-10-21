@@ -16,12 +16,17 @@
                         <div class="input-group input-group-sm">
                             {{-- 検索機能 --}}
                             <div class="input-group-append">
-                                <form action="/brochures/search" method="get";>
+                                <form action="/brochures/search" method="get" class="search">
                                     @csrf
                                         <input type="text" name="keyword">
                                         <input type="submit" value="検索">
-                                    <a href="{{ url('brochures/register') }}" class="btn btn-default">新規登録</a>
                                 </form>
+                                {{-- 管理者に表示 --}}
+                                @can('admin-higher')
+                                <form action="/brochures/register" method="get" class="register">
+                                    <button type="submit" class="btn btn-default">新規登録</button>
+                                </form>
+                                @endcan
                             </div>
                         </div>
                     </div>
@@ -33,20 +38,20 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th style="width: 5%">@sortablelink('id','ID')</th>
-                                <th style="width: 20%">名前</th>
-                                <th style="width: 15%">@sortablelink('area_id','該当市町（県）')</th>
+                                <th style="width: 20%">パンフレット名</th>
+                                <th style="width: 10%">@sortablelink('area_id','該当市町（県）')</th>
                                 <th style="width: 10%">@sortablelink('quantity','残数')</th>
-                                <th style="width: 15%">詳細</th>
+                                <th style="width: 20%">詳細</th>
                                 <th style="width: 10%">プレビュー</th>
-                                <th style="width: 20%">@sortablelink('updated_at','更新日')</th>
-                                <th style="width: 15%"></th>
+                                <th style="width: 15%">@sortablelink('updated_at','更新日')</th>
+                                @can('admin-higher')
+                                <th style="width: 10%"></th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($brochures as $brochure)
                                 <tr>
-                                    <td>{{ $brochure->id }}</td>
                                     <td>{{ $brochure->name }}</td>
                                     <td>{{ $brochure->area->area_name }}</td>
                                     <td>{{ $brochure->quantity }}</td>
@@ -57,17 +62,29 @@
                                             <button type="submit" class="btn btn-info btn-sm">表紙</button>
                                         </form>
                                     </td>
-                                    <td>{{ $brochure->updated_at }}</td>
-                                    <td class="button">
-                                        <form action="brochures/edit/{{$brochure->id}}" method="post">
-                                            @csrf
-                                            <button type="submit" class="btn btn-secondary btn-sm">編集</button>
-                                        </form>
-                                        <form action="brochures/delete/{{$brochure->id}}" method="post">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
-                                        </form>
-                                    </td>
+                                    <td>{{ $brochure->updated_at->format('Y年m月d日 H時i分') }}</td>
+                                    {{-- 管理者のみ表示 --}}
+                                    @can('admin-higher')
+                                        <td class="button-second">
+                                            <form action="brochures/edit/{{$brochure->id}}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-secondary btn-sm">編集</button>
+                                            </form>
+                                            <form action="brochures/delete/{{$brochure->id}}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
+                                            </form>
+                                        </td>
+                                    @endcan
+                                    {{-- ユーザーのみ表示 --}}
+                                    @can('user-higher')
+                                        <td class="button-third">
+                                            <form action="brochures/request/{{$brochure->id}}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary btn-sm">使用申請</button>
+                                            </form>
+                                        </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>
@@ -84,4 +101,16 @@
 @stop
 
 @section('js')
+<script>
+    $(function (){
+        $(".btn-dell").click(function(){
+            if(confirm("本当に削除しますか？")){
+
+            }else{
+
+                return false;
+            }
+        });
+    });
+</script>
 @stop
