@@ -18,7 +18,7 @@ class BrochureController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function _construct()
     {
         $this->middleware('auth');
     }
