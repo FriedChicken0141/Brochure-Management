@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // -------共通部分-------
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::prefix('brochures')->group(function () {
     // 一覧画面
@@ -35,6 +36,7 @@ Route::prefix('brochures')->group(function () {
 });
 
 // ユーザー権限設定
+
 // 管理者のみ
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     Route::prefix('brochures')->group(function () {
@@ -62,9 +64,13 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
 
         // ユーザー管理
         Route::get('/user', [App\Http\Controllers\UserController::class, 'user']);
+        // 権限変更
+        Route::post('user/change/{id}', [App\Http\Controllers\UserController::class, 'change']);
+        // ユーザー情報削除
+        Route::post('user/delete/{id}', [App\Http\Controllers\UserController::class, 'destroy']);
 
         // -------ワークフロー関係--------
-  
+
         // 申請状況更新(承認or否認（差戻）)
         Route::post('/approval/{id}', [App\Http\Controllers\WorkFlowController::class, 'approval']);
         Route::post('/disapproval/{id}', [App\Http\Controllers\WorkFlowController::class, 'disapproval']);
