@@ -32,12 +32,14 @@ class UserController extends Controller
 
         }
 
-        // ユーザー削除
+        // ユーザー削除 登録者名を削除されたユーザー、e-mailも変更し疑似削除する。
         public function destroy(Request $request)
         {
             $users = User::findOrFail($request -> id);
 
-            $users -> delete();
+            $users -> name = '削除されたユーザー';
+            $users -> email = '_deleted';
+            $users->save();
 
             return redirect('/brochures/user');
         }
