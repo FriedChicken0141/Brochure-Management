@@ -47,6 +47,7 @@
                                         </td>
                                         <td>{{ $user->created_at}}</td>
                                         <td class="button-second">
+                                            @if ($user->email !='_deleted')
                                             <form action="user/change/{{$user->id}}" method="post">
                                                 @csrf
                                                 <button type="submit" name="status" class="btn btn-primary btn-sm" value="approved">権限変更</button>
@@ -55,6 +56,7 @@
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
                                             </form>
+                                            @endif
                                         </td>
                                     </tr>
                             @endforeach

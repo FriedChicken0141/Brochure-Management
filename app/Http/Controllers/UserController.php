@@ -39,6 +39,7 @@ class UserController extends Controller
 
             $users -> name = '削除されたユーザー';
             $users -> email = '_deleted';
+            $users -> role = '一般';
             $users->save();
 
             return redirect('/brochures/user');
