@@ -313,6 +313,12 @@ return [
             'url'  => 'brochures/result',
             'icon' => 'far fa-fw fa-envelope-open',
         ],
+        [
+            'key'  => 'ユーザー一覧',
+            'text' => 'ユーザー管理',
+            'url'  => 'brochures/user',
+            'icon' => 'far fa-fw fa-address-book',
+        ],
 
         // AdminLTEデフォルト
         /*

@@ -10,6 +10,11 @@ use function App\Models\Approval;
 
 class WorkFlowController extends Controller
 {
+        public function __construct()
+        {
+            $this->middleware('auth');
+        }
+        
         // 申請機能
         public function request($id)
         {

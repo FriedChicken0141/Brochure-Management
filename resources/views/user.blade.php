@@ -3,7 +3,7 @@
 @section('title', 'ユーザー管理')
 
 @section('content_header')
-    <h1>ユーザー一覧</h1>
+    <h1>ユーザー管理</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">申請状況</h3>
+                    <h3 class="card-title">ユーザー一覧</h3>
                 </div>
                 @if(session('error'))
                 <div class="alert alert-danger">
@@ -25,29 +25,38 @@
                         <thead>
                             <tr>
                                 <th style="width: 5%">ID</th>
-                                <th style="width: 10%">ユーザーネーム</th>
-                                <th style="width: 20%">E-mail</th>
-                                <th style="width: 10%">Password</th>
-                                <th style="width: 15%">権限</th>
-                                <th style="width: 10%">登録日</th>
-                                <th style="width: 10%"></th>
+                                <th style="width: 20%">登録者名</th>
+                                <th style="width: 30%">E-mail</th>
+                                <th style="width: 20%">権限</th>
+                                <th style="width: 15%">登録日</th>
+                                <th style="width: 20%"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
                                     <tr>
-                                        <td>{{ $user->ID }}</td>
+                                        <td>{{ $user->id }}</td>
                                         <td>{{ $user->name}}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->password }}</td>
-                                        <td>{{ $user->role}}</td>
+                                        <td>
+                                            @if($user->role == 1)
+                                                管理
+                                            @else
+                                                一般
+                                            @endif
+                                        </td>
                                         <td>{{ $user->created_at}}</td>
-
                                         <td class="button-second">
-                                            <form action="hoge" method="post">
+                                            @if ($user->email !='_deleted')
+                                            <form action="user/change/{{$user->id}}" method="post">
                                                 @csrf
                                                 <button type="submit" name="status" class="btn btn-primary btn-sm" value="approved">権限変更</button>
                                             </form>
+                                            <form action="user/delete/{{$user->id}}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
+                                            </form>
+                                            @endif
                                         </td>
                                     </tr>
                             @endforeach
