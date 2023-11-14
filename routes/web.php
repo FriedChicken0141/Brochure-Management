@@ -64,6 +64,8 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
 
         // ユーザー管理
         Route::get('/user', [App\Http\Controllers\UserController::class, 'user']);
+        // 検索機能
+        Route::get('user/search', [App\Http\Controllers\UserController::class, 'search']);
         // 権限変更
         Route::post('user/change/{id}', [App\Http\Controllers\UserController::class, 'change']);
         // ユーザー情報削除

@@ -11,13 +11,25 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">ユーザー一覧</h3>
+                    <h3 class="card-title">登録ユーザー一覧</h3>
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm">
+                            {{-- 検索機能 --}}
+                            <div class="input-group-append">
+                                <form action="/brochures/user/search" method="get" class="search">
+                                    @csrf
+                                        <input type="text" name="keyword">
+                                        <input type="submit" value="検索">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                @if(session('error'))
+                {{-- @if(session('error'))
                 <div class="alert alert-danger">
                     {{ session('error') }}
                 </div>
-                @endif
+                @endif --}}
 
                 {{-- 一覧表示部分 --}}
                 <div class="card-body table-responsive p-0">
@@ -73,20 +85,10 @@
 @stop
 
 @section('js')
-{{-- <script>
+<script>
         $(function (){
         $(".btn-primary").click(function(){
-            if(confirm("この申請を承認します。")){
-
-            }else{
-
-                return false;
-            }
-        });
-    });
-    $(function (){
-        $(".btn-reject").click(function(){
-            if(confirm("この申請を否認します。")){
+            if(confirm("このユーザーの権限を変更します。")){
 
             }else{
 
@@ -96,7 +98,7 @@
     });
     $(function (){
         $(".btn-dell").click(function(){
-            if(confirm("この申請を削除しますか？")){
+            if(confirm("このユーザーを削除しますか？")){
 
             }else{
 
@@ -104,5 +106,5 @@
             }
         });
     });
-</script> --}}
+</script>
 @stop
