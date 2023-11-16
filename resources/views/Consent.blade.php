@@ -3,7 +3,7 @@
 @section('title', '申請一覧')
 
 @section('content_header')
-    <h1>申請一覧</h1>
+    <h1>使用申請</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">申請状況</h3>
+                    <h3 class="card-title">申請一覧</h3>
                 </div>
                 @if(session('error'))
                 <div class="alert alert-danger">
@@ -24,14 +24,14 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th style="width: 20%">パンフレット名</th>
-                                <th style="width: 5%">使用数</th>
-                                <th style="width: 25%">使用用途</th>
+                                <th style="width: 15%">パンフレット名</th>
+                                <th style="width: 10%">使用数</th>
+                                <th style="width: 20%">使用用途</th>
                                 <th style="width: 10%">申請者</th>
-                                <th style="width: 15%">申請日時</th>
-                                <th style="width: 5%">状況</th>
+                                <th style="width: 20%">申請日時</th>
+                                <th style="width: 10%">状況</th>
                                 @can('admin-higher')
-                                <th style="width: 10%">決裁</th>
+                                <th style="width: 10%"></th>
                                 @endcan
                                 @can('user-higher')
                                 <th style="width: 10%"></th>
@@ -40,7 +40,8 @@
                         </thead>
                         <tbody>
                             @foreach ($approvals as $approval)
-                                @if($approval -> status == "申請中" || $approval -> status == "差戻" || $approval -> status == "再申請中")
+                                @if($approval -> user_id == auth() -> id() &&
+                                    ($approval -> status == "申請中" || $approval -> status == "差戻" || $approval -> status == "再申請中"))
                                     <tr>
                                         <td>{{ $approval->brochure->name }}</td>
                                         <td>{{ $approval->quantity}}</td>
@@ -88,7 +89,7 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('/css/style-brochure.css')  }}" >
+<link rel="stylesheet" href="{{ asset('/css/style-consent.css')  }}" >
 @stop
 
 @section('js')

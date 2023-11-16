@@ -1,0 +1,44 @@
+.table td {
+    vertical-align: middle;
+    padding-left: 12px!important;
+}
+
+.table th {
+    padding-left: 12px!important;
+}
+
+.table thead th {
+    border-bottom: 0px solid #dee2e6;
+}
+
+
+.card-title {
+    padding-top: 7px;
+    font-size: 17px;
+}
+
+.register {
+    padding-right: 12px;
+}
+
+.card-header {
+    padding: 12px;
+}
+
+.button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button-second {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 12px!important;
+}
+
+form {
+    padding: 3px;
+}
+
