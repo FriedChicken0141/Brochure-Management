@@ -45,7 +45,7 @@
                                 <th style="width: 10%">プレビュー</th>
                                 <th style="width: 15%">@sortablelink('updated_at','更新日')</th>
                                 @can('admin-higher')
-                                <th style="width: 10%"></th>
+                                <th style="width: 5%"></th>
                                 @endcan
                             </tr>
                         </thead>
