@@ -14,7 +14,7 @@ class WorkFlowController extends Controller
         {
             $this->middleware('auth');
         }
-        
+
         // 申請機能
         public function request($id)
         {
@@ -40,10 +40,20 @@ class WorkFlowController extends Controller
             return redirect('/brochures');
         }
 
-        // 申請一覧画面表示
+        // 申請一覧画面
         public function Consent(Request $request)
         {
-            $approvals = approval::all();
+            $userRole = auth() -> user() -> role;
+
+            // 管理者（1）の場合、全ての申請を表示
+            if($userRole == '1'){
+
+                $approvals = approval::all();
+            } else {
+            // 一般（0）の場合、自分の申請のみを表示
+                $userId = auth() -> user() -> id;
+                $approvals = Approval::where('user_id',$userId) -> get();
+            }
 
             return view('Consent',[
                 'approvals' => $approvals
@@ -89,10 +99,22 @@ class WorkFlowController extends Controller
             return redirect('/brochures/result');
         }
 
-        // 承認履歴画面を表示
+        // 承認履歴を表示
         public function result(Request $request)
         {
-            $approvals = Approval::all();
+            $userRole = auth() -> user() -> role;
+
+            // 管理者（1）の場合、全ての申請を取得
+            if($userRole == '1'){
+                $approvals = approval::all();
+
+            } else {
+
+            // 一般（0）の場合、自分の申請のみ取得
+                $userId = auth() -> user() -> id;
+                $approvals = Approval::where('user_id',$userId) -> get();
+
+            }
 
             return view('result',[
                 'approvals' => $approvals
@@ -124,7 +146,6 @@ class WorkFlowController extends Controller
         public function destroy(Request $request)
         {
             $approvals = Approval::findOrFail($request -> id);
-
             $approvals -> delete();
 
             return redirect('/brochures/consent');

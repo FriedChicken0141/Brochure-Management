@@ -32,7 +32,7 @@ class UserController extends Controller
 
         }
 
-        // ユーザー削除 登録者名を削除されたユーザー、e-mailも変更し疑似削除する。
+        // ユーザー削除（疑似削除）
         public function destroy(Request $request)
         {
             $users = User::findOrFail($request -> id);
@@ -43,5 +43,25 @@ class UserController extends Controller
             $users->save();
 
             return redirect('/brochures/user');
+        }
+
+        // ユーザー検索
+        public function search(Request $request)
+        {
+            // リクエストからキーワードを取得
+            $keyword = $request->input('keyword');
+            // クエリを作成
+            $query = User::query();
+
+            // キーワード（入力部分）が空でない場合、検索処理を実行
+            if (!empty($keyword)) {
+                $query->where('name','like','%'.$keyword.'%')
+                    ->orWhere('role','like','%'.$keyword.'%');
+                }
+
+                // 検索検索を10件表示
+                $users = $query -> orderBy('id','asc') -> paginate(10);
+
+                return view('/user',['users' => $users,'keyword' => $keyword]);
         }
 }

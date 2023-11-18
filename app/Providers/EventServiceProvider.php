@@ -29,6 +29,7 @@ class EventServiceProvider extends ServiceProvider
         Event::listen(BuildingMenu::class, function (BuildingMenu $event) {
             if (auth()->user()->role == 0){
                 $event->menu->remove('パンフレット登録_admin_only');
+                $event->menu->remove('ユーザー一覧_admin_only');
             }
         });
     }

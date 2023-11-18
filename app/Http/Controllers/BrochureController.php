@@ -185,7 +185,7 @@ class BrochureController extends Controller
                 ->orWhere('name','like','%'.$keyword.'%')
                 ->orWhereHas('area', function ($query) use ($keyword) {
                     $query->where('area_name','like','%'.$keyword.'%')
-                ->orWhere('detail','like','%'.$keyword.'%');
+                        ->orWhere('detail','like','%'.$keyword.'%');
                 });
             }
 
