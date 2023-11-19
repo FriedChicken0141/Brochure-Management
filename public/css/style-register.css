@@ -1,0 +1,28 @@
+
+.image-preview-container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.image-preview {
+    max-width: 100%;
+    height: auto;
+}
+.col-md-6 {
+    float: left;
+    padding-left:1%;
+}
+
+.preview {
+    text-align:center;
+    padding-top: 10px;
+}
+.image-preview{
+    width: 75%;
+}
+
+.image-preview.add-solid {
+    border: 1px solid black;
+}
+
