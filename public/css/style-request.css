@@ -1,0 +1,15 @@
+.col-md-6 {
+    float: left;
+    padding-left:1%;
+}
+
+.preview {
+    text-align:center;
+    padding-top: 10px;
+}
+.image-preview {
+    width: 75%;
+    border: 1px solid black;
+}
+
+
