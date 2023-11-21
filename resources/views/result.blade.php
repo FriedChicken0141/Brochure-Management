@@ -26,9 +26,9 @@
                                     <th style="width: 10%">申請者</th>
                                 @endcan
                                 @can('user-higher')
-                                    <th style="width: 10%">申請日時</th>
+                                    <th style="width: 10%">@sortablelink('created_at','申請日時')</th>
                                 @endcan
-                                <th style="width: 15%">承認日時</th>
+                                <th style="width: 15%">@sortablelink('updated_at','更新日時')</th>
                                 @can('admin-higher')
                                 <th style="width: 5%"></th>
                                 @endcan

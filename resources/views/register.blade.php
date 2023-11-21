@@ -56,10 +56,9 @@
                             </div>
                         </div>
                         <div class="col-md-6 ">
+                            <label for="text" class="label-preview">表紙画像プレビュー</label>
                             <div class="preview">
-                                <label for="text">表紙画像プレビュー</label>
-                                <img id="preview" class="image-preview" aria-label="テスト">
-
+                                <img id="preview" class="image-preview" >
                             </div>
                         </div>
                     </div>

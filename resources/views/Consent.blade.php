@@ -30,7 +30,7 @@
                                 @can('admin-higher')
                                     <th style="width: 10%">申請者</th>
                                 @endcan
-                                <th style="width: 20%">申請日時</th>
+                                <th style="width: 20%">@sortablelink('created_at','申請日時')</th>
                                 <th style="width: 10%">状況</th>
                                 @can('admin-higher')
                                 <th style="width: 10%"></th>

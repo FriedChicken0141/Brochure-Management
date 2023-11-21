@@ -49,10 +49,11 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">再申請</button>
                             </div>
-                            <div class="col-md-6">
-                                <div class="preview">
-                                    <img src="{{ ($approvals->brochure->img_path) }}" alt="パンフレット表紙" id="image-preview" >
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="text" class="label-preview">表紙画像プレビュー</label>
+                            <div class="preview">
+                                <img src="{{ ($approvals->brochure->img_path) }}" alt="表紙" id="image-preview" >
                             </div>
                         </div>
                     </div>
@@ -68,6 +69,15 @@
 
 @section('js')
 <script>
+        $('#form-image').on('change', function(){
+	var $fr = new FileReader();
+
+	$fr.onload = function(){
+		$('#preview').attr('src', $fr.result);
+	}
+	$fr.readAsDataURL(this.files[0]);
+    });
+
     $(function (){
         $(".btn").click(function(){
             if(confirm("この内容で申請しますか？")){

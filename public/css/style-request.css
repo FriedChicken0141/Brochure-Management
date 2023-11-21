@@ -3,12 +3,18 @@
     padding-left:1%;
 }
 
+.label-preview {
+    padding-left: 20%;
+}
+
 .preview {
-    text-align:center;
     padding-top: 10px;
+    display: grid;
+    align-content: space-around;
+    justify-items: center;
 }
 .image-preview {
-    width: 75%;
+    width: 60%;
     border: 1px solid black;
 }
 

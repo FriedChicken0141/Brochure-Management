@@ -48,11 +48,12 @@ class WorkFlowController extends Controller
             // 管理者（1）の場合、全ての申請を表示
             if($userRole == '1'){
 
-                $approvals = approval::all();
+                $approvals = approval::sortable()->paginate(20);
+
             } else {
             // 一般（0）の場合、自分の申請のみを表示
                 $userId = auth() -> user() -> id;
-                $approvals = Approval::where('user_id',$userId) -> get();
+                $approvals = Approval::where('user_id',$userId) -> sortable()-> paginate(20);
             }
 
             return view('Consent',[
@@ -106,13 +107,13 @@ class WorkFlowController extends Controller
 
             // 管理者（1）の場合、全ての申請を取得
             if($userRole == '1'){
-                $approvals = approval::all();
+                $approvals = approval::sortable()->paginate(20);
 
             } else {
 
             // 一般（0）の場合、自分の申請のみ取得
                 $userId = auth() -> user() -> id;
-                $approvals = Approval::where('user_id',$userId) -> get();
+                $approvals = Approval::where('user_id',$userId) -> sortable()-> paginate(20);
 
             }
 
