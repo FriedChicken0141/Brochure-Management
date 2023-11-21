@@ -55,9 +55,11 @@
                                 <button type="submit" class="btn btn-primary">登録</button>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 ">
                             <div class="preview">
-                                <img id="preview" class="image-preview">
+                                <label for="text">表紙画像プレビュー</label>
+                                <img id="preview" class="image-preview" aria-label="テスト">
+
                             </div>
                         </div>
                     </div>
@@ -75,14 +77,14 @@
 <script>
     $('#form-image').on('change', function(){
 	var $fr = new FileReader();
+
 	$fr.onload = function(){
 		$('#preview').attr('src', $fr.result);
-
         $('.image-preview').addClass('add-solid');
 	}
 	$fr.readAsDataURL(this.files[0]);
 
+    });
 
-});
 </script>
 @stop

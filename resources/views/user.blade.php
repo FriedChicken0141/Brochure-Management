@@ -57,7 +57,7 @@
                                                 一般
                                             @endif
                                         </td>
-                                        <td>{{ $user->created_at}}</td>
+                                        <td>{{ $user->created_at->format('Y年m月d日 H時i分') }}</td>
                                         <td class="button-second">
                                             @if ($user->email !='_deleted' && $user->id != auth()->id())
                                             <form action="user/change/{{$user->id}}" method="post">

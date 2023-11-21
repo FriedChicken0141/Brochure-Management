@@ -69,7 +69,7 @@
 <script>
     $(function (){
         $(".btn").click(function(){
-            if(confirm("この内容で申請しますか？")){
+            if(confirm("この内容で再申請しますか？")){
 
             }else{
 
