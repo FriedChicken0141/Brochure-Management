@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Approval;
 use App\Models\Brochure;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 use function App\Models\Approval;
 
@@ -105,7 +107,7 @@ class WorkFlowController extends Controller
         {
             $userRole = auth() -> user() -> role;
 
-            // 管理者（1）の場合、全ての申請を取得
+            // 管理（1）の場合、全ての申請を取得
             if($userRole == '1'){
                 $approvals = approval::sortable()->paginate(20);
 
@@ -182,4 +184,28 @@ class WorkFlowController extends Controller
 
             return redirect('/brochures/consent');
         }
+
+        //
+        public function search(Request $request)
+        {
+            // リクエストからキーワードを取得
+            $keyword = $request->input('keyword');
+            // クエリを作成
+            $query = Approval::with('user','brochure');
+
+            // キーワード（入力部分）が空でない場合、検索処理を実行
+            if (!empty($keyword)) {
+                $query->where('detail','like','%'.$keyword.'%')
+                    ->orwhereHas('user',function ($query)  use ($keyword) {
+                        $query -> where('name','like','%'.$keyword.'%');})
+                    ->orwhereHas('brochure',function ($query)  use ($keyword) {
+                        $query -> Where('name','like','%'.$keyword.'%');
+                });
+
+            // 10件表示
+            $approvals = $query -> orderBy('id','asc') -> paginate(10);
+
+            return view('/result',['approvals' => $approvals,'keyword' => $keyword]);
+        }
+    }
 }

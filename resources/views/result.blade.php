@@ -12,6 +12,18 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">承認済一覧</h3>
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm">
+                            {{-- 検索機能 --}}
+                            <div class="input-group-append">
+                                <form action="/brochures/result/search" method="get" class="search">
+                                    @csrf
+                                        <input type="text" name="keyword">
+                                        <input type="submit" value="検索">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {{-- 一覧表示部分 --}}

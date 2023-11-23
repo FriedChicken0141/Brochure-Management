@@ -28,7 +28,7 @@ class UserController extends Controller
             }
             $role -> save();
 
-            return redirect('/brochures');
+            return redirect('/brochures/user');
 
         }
 
@@ -39,13 +39,13 @@ class UserController extends Controller
 
             $users -> name = '削除されたユーザー';
             $users -> email = '_deleted';
-            $users -> role = '一般';
+            $users -> role = '0';
             $users->save();
 
             return redirect('/brochures/user');
         }
 
-        // ユーザー検索
+        // ユーザー管理画面検索
         public function search(Request $request)
         {
             // リクエストからキーワードを取得
@@ -53,15 +53,23 @@ class UserController extends Controller
             // クエリを作成
             $query = User::query();
 
-            // キーワード（入力部分）が空でない場合、検索処理を実行
+            // 空でない場合、検索処理を実行
             if (!empty($keyword)) {
-                $query->where('name','like','%'.$keyword.'%')
-                    ->orWhere('role','like','%'.$keyword.'%');
+                // 管理で検索する場合、ロールカラムで1を検索
+                if($keyword == '管理') {
+                    $query -> where('role',1);
                 }
+                // 一般で検索する場合、ロールカラムで0を検索
+                elseif($keyword == '一般') {
+                    $query -> where('role',0);
+                }
+                else {
+                    $query->where('name','like','%'.$keyword.'%');
+                }}
 
-                // 検索検索を10件表示
-                $users = $query -> orderBy('id','asc') -> paginate(10);
+            // 検索検索を10件表示
+            $users = $query -> orderBy('id','asc') -> paginate(10);
 
-                return view('/user',['users' => $users,'keyword' => $keyword]);
+            return view('/user',['users' => $users,'keyword' => $keyword]);
         }
 }

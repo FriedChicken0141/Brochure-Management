@@ -26,12 +26,12 @@ class Approval extends Model
 
     public function brochure()
     {
-        return $this -> belongsTo(Brochure::class,'brochure_id');
+        return $this -> belongsTo(Brochure::class);
     }
 
     public function user()
     {
-        return $this -> belongsTo(user::class,'user_id');
+        return $this -> belongsTo(user::class);
     }
 }
 
