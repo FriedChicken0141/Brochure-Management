@@ -37,6 +37,7 @@ class WorkFlowController extends Controller
                 'brochure_id' => $brochure->id,
                 'quantity' => $request->quantity,
                 'detail' => $request->detail,
+                'status' => '申請中',
             ]);
 
             return redirect('/brochures');
