@@ -5,14 +5,14 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UserTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        DB::table('users')->insert(
+        \DB::table('users')->insert([
             [
                 'name' => '管理太郎',
                 'email' => 'admin@example.com',
@@ -28,7 +28,7 @@ class UserTableSeeder extends Seeder
                 'role' => '0',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
-            ]
-        );
+            ],
+        ]);
     }
 }

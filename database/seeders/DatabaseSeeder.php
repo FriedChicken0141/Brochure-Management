@@ -12,12 +12,13 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
+    public function run()
     {
 
         $this -> call([
             AreasTableSeeder::class,
-            UserTableSeeder::class,
+            UsersTableSeeder::class,
         ]);
+
     }
 }

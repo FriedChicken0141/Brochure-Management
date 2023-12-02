@@ -10,9 +10,9 @@ class AreasTableSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        DB::table('areas')->insert([
+        \DB::table('areas')->insert([
             [
                 'area_name' => '愛媛県',
                 'created_at' => date('Y-m-d H:i:s'),

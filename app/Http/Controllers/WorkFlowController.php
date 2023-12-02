@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Approval;
 use App\Models\Brochure;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
-
-use function App\Models\Approval;
+use App\Notifications\InformationNotification;
+use App\Notifications\PermissionNotification;
+use Illuminate\Support\Facades\Notification;
 
 class WorkFlowController extends Controller
 {
@@ -26,7 +26,8 @@ class WorkFlowController extends Controller
         }
         public function application(Request $request)
         {
-            // userテーブルからidを取得
+
+            // userテーブルからidを取得し$user_idへ
             $user_id = auth() -> user() -> id;
 
             $brochure = Brochure::findOrFail($request -> id);
@@ -40,12 +41,16 @@ class WorkFlowController extends Controller
                 'status' => '申請中',
             ]);
 
-            return redirect('/brochures');
+            $user = User::where('role',1) -> get();
+            Notification::send($user, new InformationNotification($brochure));
+
+            return redirect('/brochures') -> with('success','申請を行いました。');
         }
 
         // 申請一覧画面
         public function Consent(Request $request)
         {
+
             $userRole = auth() -> user() -> role;
 
             // 管理者（1）の場合、全ての申請を表示
@@ -57,6 +62,14 @@ class WorkFlowController extends Controller
             // 一般（0）の場合、自分の申請のみを表示
                 $userId = auth() -> user() -> id;
                 $approvals = Approval::where('user_id',$userId) -> sortable()-> paginate(20);
+            }
+
+            // 通知の既読処理
+            $user = auth() -> user();
+            $read = $user -> unreadNotifications;
+
+            foreach($read as $information){
+                $information -> markAsRead();
             }
 
             return view('Consent',[
@@ -87,6 +100,10 @@ class WorkFlowController extends Controller
             // 保存
             $approvals -> save();
 
+
+            $user = User::find($approvals -> user_id);
+            $user -> notify(new PermissionNotification($approvals));
+
             // 決裁履歴へ遷移
             return redirect('/brochures/result');
         }
@@ -115,8 +132,8 @@ class WorkFlowController extends Controller
             } else {
 
             // 一般（0）の場合、自分の申請のみ取得
-                $userId = auth() -> user() -> id;
-                $approvals = Approval::where('user_id',$userId) -> sortable()-> paginate(20);
+                $user_id = auth() -> user() -> id;
+                $approvals = Approval::where('user_id',$user_id) -> sortable()-> paginate(20);
 
             }
 

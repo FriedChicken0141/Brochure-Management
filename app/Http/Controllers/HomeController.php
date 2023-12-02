@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Notification;
+use PHPUnit\Framework\TestStatus\Notice;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $notifications = Notification::select('description') -> groupBy('description')->get();
+        // $count = Notification::count();
+
         return view('home');
     }
 }
