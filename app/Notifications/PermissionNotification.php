@@ -35,6 +35,7 @@ class PermissionNotification extends Notification
         return [
             'title' => '新規通知',
             'content' => '申請が承認されました。',
+            'link' =>'/brochures/result',
         ];
     }
 }

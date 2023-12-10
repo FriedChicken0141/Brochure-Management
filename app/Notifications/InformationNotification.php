@@ -40,6 +40,7 @@ class InformationNotification extends Notification
         return [
             'title' => '新規通知',
             'content' => '新しい申請があります。',
+            'link' => '/brochures/consent',
         ];
     }
 }

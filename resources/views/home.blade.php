@@ -3,25 +3,43 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>パンフレット管理システムへようこそ</h1>
+    <h1>ホーム</h1>
 @stop
 
 @section('content')
 
     <div class="notification-head">
-        <h4>お知らせ</h4>
-        <div class="notification-body">
-            @forelse(auth()->user()->notifications()->get() as $notification)
-                <div class="{{ is_null($notification->read_at) ? 'un-read' : '' }}">
-                    @if ($notification->read_at === null)
-                        <p><a href="{{url('/brochures/consent')}}">{{ $notification->data['content'] }}</a></p>
+        <div class="notification-user">
+            <h3>あなたへのお知らせ</h3>
+            <div class="nitification-content">
+                @forelse(auth()->user()->notifications()->take(1)->get() as $notification)
+                    @if ($notification->read_at)
+                        <p>新着通知はありません</p>
                     @else
-                        <p>通知はありません</p>
+                        <li><a href={{$notification->data['link']}}>{{ $notification->data['content'] }}</a></li>
                     @endif
+                @empty
+                    <p>新着通知はありません</p>
+                @endforelse
+                {{-- @php
+                    dd($newBrochures);
+                @endphp --}}
+            </div>
+        </div>
+        <div class="notification-whole">
+            <h3>管理者からのお知らせ</h3>
+            <div class="nitification-content">
+                <p><h5>【重要】パンフレットを使用する際は、必ず使用申請を行ってください。</h5></p>
+                <div class="nitification-ragister"><h5>【新規登録】</h5></div>
+                <div class="ragister-content">
+                    @forelse ($newBrochures as $newBrochure)
+                        <li><a href="{{url('/brochures')}}">{{$newBrochure->created_at->format('m月d日')}}&emsp;
+                            {{$newBrochure->name}}({{$newBrochure->area->area_name}})&ensp;を追加しました。</a></li>
+                    @empty
+                        <p>新規登録されたパンフレットはありません。</p>
+                    @endforelse
                 </div>
-            @empty
-                <p>通知はありません</p>
-            @endforelse
+            </div>
         </div>
     </div>
 

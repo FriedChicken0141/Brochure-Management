@@ -1,8 +1,14 @@
 .content-wrapper {
-    
-    background-image: url(../images/typec_.jpg);
+    background-image: url(../images/white_0013.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+}
 
+.notification-user {
+    margin-bottom: 20%;
+}
+
+.notification-whole {
+    margin-bottom: 25%;
 }

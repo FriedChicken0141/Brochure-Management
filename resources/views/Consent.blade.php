@@ -52,7 +52,7 @@
                                         @endcan
                                         <td>{{ $approval->created_at->format('Y年m月d日 H時i分') }}</td>
                                         <td>{{ $approval->status }}</td>
-                                        {{-- 管理者に表示 --}}
+                                        {{-- 管理者のみ --}}
                                         @can('admin-higher')
                                         <td class="button-second">
                                             <form action="approval/{{$approval->id}}'" method="post">
@@ -66,7 +66,7 @@
                                             </form>
                                         </td>
                                         @endcan
-                                        {{-- ユーザーのみ表示 --}}
+                                        {{-- ユーザーのみ --}}
                                         @can('user-higher')
                                         <td class="button-second">
                                             <form action="consent/edit/{{$approval->id}}" method="post">
@@ -80,7 +80,7 @@
                                         </td>
                                         @endcan
                                     </tr>
-                                    @endif
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

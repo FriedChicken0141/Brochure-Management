@@ -291,6 +291,13 @@ return [
 
     'menu' => [
         [
+            'key'  => 'ホーム',
+            'text' => 'ホーム',
+            'url'  => 'home',
+            'icon' => 'fas fa-home',
+        ],
+        [
+            'key'  => 'パンフレット一覧',
             'text' => '一覧',
             'url'  => 'brochures',
             'icon' => 'far fa-fw fa-file',
@@ -306,6 +313,7 @@ return [
             'text' => '使用申請',
             'url'  => 'brochures/consent',
             'icon' => 'far fa-fw fa-envelope',
+        //     'badge'=> optional($groupNotifications)->get('App\Notifications\InformationNotification_' . auth()->id())->count(),
         ],
         [
             'key'  => '決裁履歴一覧',
@@ -317,7 +325,7 @@ return [
             'key'  => 'ユーザー一覧_admin_only',
             'text' => 'ユーザー管理',
             'url'  => 'brochures/user',
-            'icon' => 'far fa-fw fa-address-book',
+            'icon' => 'far fa-address-book',
         ],
 
         // AdminLTEデフォルト

@@ -41,10 +41,11 @@ class WorkFlowController extends Controller
                 'status' => '申請中',
             ]);
 
+            // 通知を送る
             $user = User::where('role',1) -> get();
             Notification::send($user, new InformationNotification($brochure));
 
-            return redirect('/brochures') -> with('success','申請を行いました。');
+            return redirect('/brochures');
         }
 
         // 申請一覧画面
@@ -56,25 +57,29 @@ class WorkFlowController extends Controller
             // 管理者（1）の場合、全ての申請を表示
             if($userRole == '1'){
 
-                $approvals = approval::sortable()->paginate(20);
+                $approvals = Approval::whereIn('status',['申請中','再申請'])
+                ->sortable()
+                ->paginate(20);
 
             } else {
             // 一般（0）の場合、自分の申請のみを表示
                 $userId = auth() -> user() -> id;
-                $approvals = Approval::where('user_id',$userId) -> sortable()-> paginate(20);
+                $approvals = Approval::where('user_id',$userId)
+                -> sortable()
+                -> paginate(20);
             }
 
             // 通知の既読処理
             $user = auth() -> user();
-            $read = $user -> unreadNotifications;
+            $unreadNotifications= $user -> unreadNotifications;
 
-            foreach($read as $information){
+            foreach($unreadNotifications as $information){
                 $information -> markAsRead();
             }
 
-            return view('Consent',[
-                'approvals' => $approvals
-            ]);
+            $updatedUnreadNotifications = $user->unreadNotifications;
+
+            return view('Consent',['approvals' => $approvals]);
         }
 
         // 申請を承認
