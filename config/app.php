@@ -188,6 +188,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'Cloudinary'=>CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
         'CloudinaryUpload' => app\Library\CloudinaryUpload::class,
+        'FacadeName' => Illuminate\Support\Facades\Facade::class,
     ])->toArray(),
 
 ];

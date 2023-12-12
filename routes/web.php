@@ -22,6 +22,7 @@ Auth::routes();
 // -------共通部分-------
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::prefix('brochures')->group(function () {
     // 一覧画面
     Route::get('', [App\Http\Controllers\BrochureController::class, 'index']);

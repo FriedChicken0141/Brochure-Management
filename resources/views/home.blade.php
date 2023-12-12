@@ -22,7 +22,7 @@
                     <p>新着通知はありません</p>
                 @endforelse
                 {{-- @php
-                    dd($newBrochures);
+                    dd($groupNotifications);
                 @endphp --}}
             </div>
         </div>
