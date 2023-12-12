@@ -22,17 +22,20 @@ Auth::routes();
 // -------共通部分-------
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::prefix('brochures')->group(function () {
     // 一覧画面
     Route::get('', [App\Http\Controllers\BrochureController::class, 'index']);
     // プレビュー画面
     Route::get('/cover/{id}', [App\Http\Controllers\BrochureController::class, 'cover']);
-    // 検索機能
+    // 検索機能(一覧画面)
     Route::get('/search', [App\Http\Controllers\BrochureController::class, 'search']);
     // 承認機能
     Route::get('/consent', [App\Http\Controllers\WorkFlowController::class, 'consent']);
     // 決裁済み画面
     Route::get('/result', [App\Http\Controllers\WorkFlowController::class, 'result']);
+    // 検索機能（承認履歴）
+    Route::get('/result/search', [App\Http\Controllers\WorkFlowController::class, 'search']);
 });
 
 // ユーザー権限設定
@@ -63,7 +66,7 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
         // -------ユーザー関係-----------
 
         // ユーザー管理
-        Route::get('/user', [App\Http\Controllers\UserController::class, 'user']);
+        Route::get('user', [App\Http\Controllers\UserController::class, 'user']);
         // 検索機能
         Route::get('user/search', [App\Http\Controllers\UserController::class, 'search']);
         // 権限変更

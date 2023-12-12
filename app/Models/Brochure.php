@@ -17,12 +17,13 @@ class brochure extends Model
         'detail',
         'img_path',
         'img_public_id',
+        'created_at',
         'updated_at',
     ];
 
     use Sortable;
     public $sortable = [
-        'id','area_id','quantity','updated_at',
+        'id','area_id','quantity','created_at','updated_at'
     ];
 
     public function area()

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Brochure;
 use App\Models\Area;
-use Illuminate\Support\Facades\Storage;
+use App\Notifications\WholeNotification;
+use App\Models\User;
+use Illuminate\Support\Facades\Notification;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
-use function App\Models\brochures;
 
 class BrochureController extends Controller
 {
@@ -83,6 +83,7 @@ class BrochureController extends Controller
                 'img_path' =>  $uploadedFile->getSecurePath(),
                 'img_public_id' => $uploadedFile->getPublicId(),
             ]);
+
 
             return redirect('/brochures');
 

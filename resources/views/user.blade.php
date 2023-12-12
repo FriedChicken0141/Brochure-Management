@@ -25,11 +25,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-                @endif --}}
 
                 {{-- 一覧表示部分 --}}
                 <div class="card-body table-responsive p-0">
@@ -53,14 +48,14 @@
                                         <td>
                                             @if($user->role == 1)
                                                 管理
-                                            @else
+                                            @elseif (($user->role == 0))
                                                 一般
                                             @endif
                                         </td>
-                                        <td>{{ $user->created_at}}</td>
+                                        <td>{{ $user->created_at->format('Y年m月d日 H時i分') }}</td>
                                         <td class="button-second">
                                             @if ($user->email !='_deleted' && $user->id != auth()->id())
-                                            <form action="user/change/{{$user->id}}" method="post">
+                                            <form action="change/{{$user->id}}" method="post">
                                                 @csrf
                                                 <button type="submit" name="status" class="btn btn-primary btn-sm" value="approved">権限変更</button>
                                             </form>

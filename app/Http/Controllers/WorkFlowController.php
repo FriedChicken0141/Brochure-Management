@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Approval;
 use App\Models\Brochure;
-
-use function App\Models\Approval;
+use App\Models\User;
+use App\Notifications\InformationNotification;
+use App\Notifications\PermissionNotification;
+use Illuminate\Support\Facades\Notification;
 
 class WorkFlowController extends Controller
 {
@@ -24,7 +26,8 @@ class WorkFlowController extends Controller
         }
         public function application(Request $request)
         {
-            // userテーブルからidを取得
+
+            // userテーブルからidを取得し$user_idへ
             $user_id = auth() -> user() -> id;
 
             $brochure = Brochure::findOrFail($request -> id);
@@ -35,7 +38,12 @@ class WorkFlowController extends Controller
                 'brochure_id' => $brochure->id,
                 'quantity' => $request->quantity,
                 'detail' => $request->detail,
+                'status' => '申請中',
             ]);
+
+            // 通知を送る
+            $user = User::where('role',1) -> get();
+            Notification::send($user, new InformationNotification($brochure));
 
             return redirect('/brochures');
         }
@@ -43,21 +51,35 @@ class WorkFlowController extends Controller
         // 申請一覧画面
         public function Consent(Request $request)
         {
+
             $userRole = auth() -> user() -> role;
 
             // 管理者（1）の場合、全ての申請を表示
             if($userRole == '1'){
 
-                $approvals = approval::all();
+                $approvals = Approval::whereIn('status',['申請中','再申請'])
+                ->sortable()
+                ->paginate(20);
+
             } else {
             // 一般（0）の場合、自分の申請のみを表示
                 $userId = auth() -> user() -> id;
-                $approvals = Approval::where('user_id',$userId) -> get();
+                $approvals = Approval::where('user_id',$userId)
+                -> sortable()
+                -> paginate(20);
             }
 
-            return view('Consent',[
-                'approvals' => $approvals
-            ]);
+            // 通知の既読処理
+            $user = auth() -> user();
+            $unreadNotifications= $user -> unreadNotifications;
+
+            foreach($unreadNotifications as $information){
+                $information -> markAsRead();
+            }
+
+            $updatedUnreadNotifications = $user->unreadNotifications;
+
+            return view('Consent',['approvals' => $approvals]);
         }
 
         // 申請を承認
@@ -83,6 +105,10 @@ class WorkFlowController extends Controller
             // 保存
             $approvals -> save();
 
+
+            $user = User::find($approvals -> user_id);
+            $user -> notify(new PermissionNotification($approvals));
+
             // 決裁履歴へ遷移
             return redirect('/brochures/result');
         }
@@ -104,15 +130,15 @@ class WorkFlowController extends Controller
         {
             $userRole = auth() -> user() -> role;
 
-            // 管理者（1）の場合、全ての申請を取得
+            // 管理（1）の場合、全ての申請を取得
             if($userRole == '1'){
-                $approvals = approval::all();
+                $approvals = approval::sortable()->paginate(20);
 
             } else {
 
             // 一般（0）の場合、自分の申請のみ取得
-                $userId = auth() -> user() -> id;
-                $approvals = Approval::where('user_id',$userId) -> get();
+                $user_id = auth() -> user() -> id;
+                $approvals = Approval::where('user_id',$user_id) -> sortable()-> paginate(20);
 
             }
 
@@ -181,4 +207,28 @@ class WorkFlowController extends Controller
 
             return redirect('/brochures/consent');
         }
+
+        //
+        public function search(Request $request)
+        {
+            // リクエストからキーワードを取得
+            $keyword = $request->input('keyword');
+            // クエリを作成
+            $query = Approval::with('user','brochure');
+
+            // キーワード（入力部分）が空でない場合、検索処理を実行
+            if (!empty($keyword)) {
+                $query->where('detail','like','%'.$keyword.'%')
+                    ->orwhereHas('user',function ($query)  use ($keyword) {
+                        $query -> where('name','like','%'.$keyword.'%');})
+                    ->orwhereHas('brochure',function ($query)  use ($keyword) {
+                        $query -> Where('name','like','%'.$keyword.'%');
+                });
+
+            // 10件表示
+            $approvals = $query -> orderBy('id','asc') -> paginate(10);
+
+            return view('/result',['approvals' => $approvals,'keyword' => $keyword]);
+        }
+    }
 }

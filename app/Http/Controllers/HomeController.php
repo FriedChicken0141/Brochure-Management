@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-
+use App\Models\brochure;
+use App\Models\Notification;
 
 class HomeController extends Controller
 {
@@ -24,6 +23,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $userId = auth()->id();
+
+        $notifications = Notification::where('notifiable_id',$userId)
+            ->where('read_at',null)
+            ->get();
+
+        $groupNotifications = $notifications->groupBy(function ($notification){
+            return $notification->type .'_'. $notification->notifiable_id;
+        });
+
+
+        // パンフレットの新規登録があった場合、情報を取得
+        $newBrochures = Brochure::where('created_at','>=',now()->subWeek(2))->take(5)->get();
+
+        return view('home',compact('notifications','newBrochures','groupNotifications'));
     }
 }
