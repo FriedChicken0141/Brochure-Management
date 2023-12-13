@@ -12,3 +12,9 @@
 .notification-whole {
     margin-bottom: 25%;
 }
+
+.notification-list {
+    font-size: large;
+    padding-bottom: 10px;
+    padding-left: 2%;
+}
