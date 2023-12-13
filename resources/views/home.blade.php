@@ -14,16 +14,13 @@
             <div class="nitification-content">
                 @forelse(auth()->user()->notifications()->take(1)->get() as $notification)
                     @if ($notification->read_at)
-                        <p>新着通知はありません</p>
+                        <li class="notification-list">新着通知はありません。</li>
                     @else
-                        <li><a href={{$notification->data['link']}}>{{ $notification->data['content'] }}</a></li>
+                        <li class="notification-list"><a href={{$notification->data['link']}}>{{ $notification->data['content'] }}</a></li>
                     @endif
                 @empty
-                    <p>新着通知はありません</p>
+                    <li class="notification-list">新着通知はありません。</li>
                 @endforelse
-                {{-- @php
-                    dd($groupNotifications);
-                @endphp --}}
             </div>
         </div>
         <div class="notification-whole">
@@ -33,10 +30,10 @@
                 <div class="nitification-ragister"><h5>【新規登録】</h5></div>
                 <div class="ragister-content">
                     @forelse ($newBrochures as $newBrochure)
-                        <li><a href="{{url('/brochures')}}">{{$newBrochure->created_at->format('m月d日')}}&emsp;
+                        <li class="notification-list"><a href="{{url('/brochures')}}">{{$newBrochure->created_at->format('m月d日')}}&emsp;
                             {{$newBrochure->name}}({{$newBrochure->area->area_name}})&ensp;を追加しました。</a></li>
                     @empty
-                        <p>新規登録されたパンフレットはありません。</p>
+                        <li class="notification-list">2週間以内に新規登録されたパンフレットはありません。</li>
                     @endforelse
                 </div>
             </div>

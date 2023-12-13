@@ -59,7 +59,7 @@
                                     <td class="button">
                                         <form action="brochures/cover/{{$brochure->id}}" method="get">
                                             @csrf
-                                            <button type="submit" class="btn btn-info btn-sm">表紙</button>
+                                            <button type="submit" class="btn btn-info btn-sm">表紙画像</button>
                                         </form>
                                     </td>
                                     <td>{{ $brochure->updated_at->format('Y年m月d日 H時i分') }}</td>

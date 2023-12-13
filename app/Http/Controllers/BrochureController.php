@@ -28,7 +28,7 @@ class BrochureController extends Controller
      */
     public function index(Request $request)
     {
-        $brochures = brochure::sortable()->paginate(20);
+        $brochures = brochure::sortable()->paginate(50);
         $areas = area::all();
 
 
