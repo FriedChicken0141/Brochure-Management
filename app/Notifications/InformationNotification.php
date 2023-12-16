@@ -14,7 +14,7 @@ class InformationNotification extends Notification
      */
     public function __construct($information)
     {
-        $this -> information = $information;
+        $this->information = $information;
     }
 
     /**

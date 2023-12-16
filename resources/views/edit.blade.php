@@ -18,7 +18,6 @@
                     </ul>
                 </div>
             @endif
-
             {{-- idは不要。 nameは重要 --}}
             <div class="card card-primary">
                 {{-- 入力内容をPOSTで/brochures/updateへ渡す --}}
@@ -50,7 +49,6 @@
                                 <label for="quantity">残数</label>
                                 <input type="text" name="quantity" value="{{$brochures->quantity}}" class="form-control"  required>
                             </div>
-
                             {{-- 詳細 --}}
                             <div class="form-group">
                                 <label for="detail">詳細</label>
@@ -77,8 +75,12 @@
     </div>
 @stop
 
+@section('footer')
+    @include('footer')
+@stop
+
 @section('css')
-<link rel="stylesheet" href="{{ asset('/css/style-register.css')  }}" >
+    <link rel="stylesheet" href="{{ asset('/css/style-register.css')  }}" >
 @stop
 
 @section('js')

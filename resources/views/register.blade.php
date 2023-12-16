@@ -68,6 +68,10 @@
     </div>
 @stop
 
+@section('footer')
+    @include('footer')
+@stop
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('/css/style-register.css')  }}" >
 @stop

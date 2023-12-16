@@ -22,11 +22,11 @@ class UserController extends Controller
             $oldRole = $role -> role;
 
             if($oldRole === 0){
-                $role -> role = 1;
+                $role->role = 1;
             }else if($oldRole === 1){
-                $role -> role = 0;
+                $role->role = 0;
             }
-            $role -> save();
+            $role->save();
 
             return redirect('/brochures/user');
 
@@ -35,11 +35,11 @@ class UserController extends Controller
         // ユーザー削除（疑似削除）
         public function destroy(Request $request)
         {
-            $users = User::findOrFail($request -> id);
+            $users = User::findOrFail($request->id);
 
-            $users -> name = '削除されたユーザー';
-            $users -> email = '_deleted';
-            $users -> role = '0';
+            $users->name = '削除されたユーザー';
+            $users->email = '_deleted';
+            $users->role = '0';
             $users->save();
 
             return redirect('/brochures/user');
@@ -57,18 +57,18 @@ class UserController extends Controller
             if (!empty($keyword)) {
                 // 管理で検索する場合、ロールカラムで1を検索
                 if($keyword == '管理') {
-                    $query -> where('role',1);
+                    $query->where('role',1);
                 }
                 // 一般で検索する場合、ロールカラムで0を検索
                 elseif($keyword == '一般') {
-                    $query -> where('role',0);
+                    $query->where('role',0);
                 }
                 else {
                     $query->where('name','like','%'.$keyword.'%');
                 }}
 
             // 検索検索を10件表示
-            $users = $query -> orderBy('id','asc') -> paginate(10);
+            $users = $query->orderBy('id','asc')->paginate(10);
 
             return view('/user',['users' => $users,'keyword' => $keyword]);
         }

@@ -6,11 +6,7 @@
 }
 
 .notification-user {
-    margin-bottom: 20%;
-}
-
-.notification-whole {
-    margin-bottom: 25%;
+    margin-bottom: 15%;
 }
 
 .notification-list {
@@ -18,3 +14,9 @@
     padding-bottom: 10px;
     padding-left: 2%;
 }
+
+footer {
+    text-align: center;
+}
+
+
