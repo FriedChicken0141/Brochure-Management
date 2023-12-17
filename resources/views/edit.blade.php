@@ -40,7 +40,7 @@
                             </div>
                             <div class="form-group">
                                 <div><label for="cover">表紙画像</label></div>
-                                <input type="file" name="image" value="{{$brochures->img_path}}" class="form-image" >
+                                <input type="file" name="image" value="{{$brochures->img_path}}" class="form-image" id="form-image">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">登録</button>
@@ -50,7 +50,7 @@
                         <div class="col-md-6 ">
                             <label for="text" class="label-preview">表紙画像プレビュー</label>
                             <div class="preview">
-                                <img id="preview" class="image-preview" value="{{$brochures->img_public_id}}" alt="表紙画像">
+                                <img id="preview" class="image-preview" src="{{$brochures->img_path}}" alt="表紙">
                             </div>
                         </div>
                     </div>
