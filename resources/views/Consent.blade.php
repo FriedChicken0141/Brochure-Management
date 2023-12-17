@@ -13,30 +13,24 @@
                 <div class="card-header">
                     <h3 class="card-title">申請一覧</h3>
                 </div>
-                @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-                @endif
-
                 {{-- 一覧表示部分 --}}
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th style="width: 15%">パンフレット名</th>
+                                <th style="width: 20%">パンフレット名</th>
                                 <th style="width: 10%">使用数</th>
-                                <th style="width: 20%">使用用途</th>
+                                <th style="width: 30%">使用用途</th>
                                 @can('admin-higher')
-                                    <th style="width: 10%">申請者</th>
+                                    <th style="width: 5%">申請者</th>
                                 @endcan
-                                <th style="width: 20%">@sortablelink('created_at','申請日時')</th>
-                                <th style="width: 10%">状況</th>
+                                <th style="width: 10%">@sortablelink('created_at','申請日時')</th>
+                                <th style="width: 5%">状況</th>
                                 @can('admin-higher')
-                                <th style="width: 10%"></th>
+                                <th style="width: 5%"></th>
                                 @endcan
                                 @can('user-higher')
-                                <th style="width: 3%"></th>
+                                <th style="width: 5%"></th>
                                 @endcan
                             </tr>
                         </thead>
@@ -99,36 +93,5 @@
 @stop
 
 @section('js')
-<script>
-        $(function (){
-        $(".btn-primary").click(function(){
-            if(confirm("この申請を承認します。")){
-
-            }else{
-
-                return false;
-            }
-        });
-    });
-    $(function (){
-        $(".btn-reject").click(function(){
-            if(confirm("この申請を否認します。")){
-
-            }else{
-
-                return false;
-            }
-        });
-    });
-    $(function (){
-        $(".btn-dell").click(function(){
-            if(confirm("この申請を削除しますか？")){
-
-            }else{
-
-                return false;
-            }
-        });
-    });
-</script>
+    <script src="{{ asset('/js/consent.js')  }}"></script>
 @stop

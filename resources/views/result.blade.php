@@ -25,22 +25,21 @@
                         </div>
                     </div>
                 </div>
-
                 {{-- 一覧表示部分 --}}
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
                                 <th style="width: 20%">パンフレット名</th>
-                                <th style="width: 10%">使用数</th>
-                                <th style="width: 20%">詳細</th>
+                                <th style="width: 5%">使用数</th>
+                                <th style="width: 30%">使用用途</th>
                                 @can('admin-higher')
-                                    <th style="width: 10%">申請者</th>
+                                    <th style="width: 5%">申請者</th>
                                 @endcan
                                 @can('user-higher')
                                     <th style="width: 10%">@sortablelink('created_at','申請日時')</th>
                                 @endcan
-                                <th style="width: 15%">@sortablelink('updated_at','更新日時')</th>
+                                <th style="width: 10%">@sortablelink('updated_at','承認日時')</th>
                                 @can('admin-higher')
                                 <th style="width: 5%"></th>
                                 @endcan
@@ -85,20 +84,9 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('/css/style-brochure.css')  }}" >
+    <link rel="stylesheet" href="{{ asset('/css/style-consent.css')  }}" >
 @stop
 
 @section('js')
-<script>
-        $(function (){
-        $(".btn-primary").click(function(){
-            if(confirm("この申請を差し戻します。")){
-
-            }else{
-
-                return false;
-            }
-        });
-    });
-</script>
+    <script src="{{ asset('/js/result.js')  }}"></script>
 @stop
