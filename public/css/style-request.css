@@ -13,7 +13,7 @@
     align-content: space-around;
     justify-items: center;
 }
-.image-preview {
+.preview #image-preview {
     width: 60%;
     border: 1px solid black;
 }

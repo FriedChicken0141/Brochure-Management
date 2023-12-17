@@ -142,6 +142,16 @@ class WorkFlowController extends Controller
 
             }
 
+            // 通知の既読処理
+            $user = auth()->user();
+            $unreadNotifications= $user->unreadNotifications;
+
+            foreach($unreadNotifications as $information){
+                $information->markAsRead();
+            }
+
+            $updatedUnreadNotifications = $user->unreadNotifications;
+
             return view('result',[
                 'approvals' => $approvals
             ]);

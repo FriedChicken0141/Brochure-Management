@@ -50,7 +50,7 @@
                         <div class="col-md-6 ">
                             <label for="text" class="label-preview">表紙画像プレビュー</label>
                             <div class="preview">
-                                <img id="preview" class="image-preview" alt="表紙画像">
+                                <img id="preview" class="image-preview" value="{{$brochures->img_public_id}}" alt="表紙画像">
                             </div>
                         </div>
                     </div>
