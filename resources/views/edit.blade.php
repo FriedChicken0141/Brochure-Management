@@ -65,7 +65,7 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('/css/style-register.css')  }}" >
+    <link rel="stylesheet" href="{{ asset('/css/style-edit.css')  }}" >
 @stop
 
 @section('js')

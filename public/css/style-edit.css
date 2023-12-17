@@ -1,6 +1,7 @@
 .image-preview {
     height: auto;
-    max-width: 100%;
+    width: 60%;
+    border: 1px solid black;
 }
 
 .col-md-6 {
@@ -17,11 +18,6 @@
     display: grid;
     align-content: space-around;
     justify-items: center;
-}
-
-.image-preview.add-solid {
-    width: 60%;
-    border: 1px solid black;
 }
 
 footer {
