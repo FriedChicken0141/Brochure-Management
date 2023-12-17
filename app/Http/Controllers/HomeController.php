@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\brochure;
+use App\Models\Brochure;
 use App\Models\Notification;
 
 class HomeController extends Controller
