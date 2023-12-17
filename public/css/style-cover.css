@@ -1,5 +1,6 @@
 #cover-image {
-    width: 100%;
+    width: 40%;
+    border: 1px solid black;
 }
 
 footer {
