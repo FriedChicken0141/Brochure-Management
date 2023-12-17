@@ -41,7 +41,7 @@
                                 <th style="width: 20%">パンフレット名</th>
                                 <th style="width: 10%">@sortablelink('area_id','該当市町（県）')</th>
                                 <th style="width: 10%">@sortablelink('quantity','残数')</th>
-                                <th style="width: 20%">詳細</th>
+                                <th style="width: 30%">詳細</th>
                                 <th style="width: 10%">プレビュー</th>
                                 <th style="width: 15%">@sortablelink('updated_at','更新日')</th>
                                 @can('admin-higher')
@@ -96,21 +96,14 @@
     </div>
 @stop
 
+@section('footer')
+    @include('footer')
+@stop
+
 @section('css')
-<link rel="stylesheet" href="{{ asset('/css/style-brochure.css')  }}" >
+    <link rel="stylesheet" href="{{ asset('/css/style-brochure.css')  }}" >
 @stop
 
 @section('js')
-<script>
-    $(function (){
-        $(".btn-dell").click(function(){
-            if(confirm("本当に削除しますか？")){
-
-            }else{
-
-                return false;
-            }
-        });
-    });
-</script>
+    <script src="{{ asset('/js/index.js')  }}"></script>
 @stop

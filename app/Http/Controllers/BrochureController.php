@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Brochure;
 use App\Models\Area;
-use App\Notifications\WholeNotification;
-use App\Models\User;
-use Illuminate\Support\Facades\Notification;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
@@ -60,13 +57,13 @@ class BrochureController extends Controller
     public function add(Request $request)
     {
         // userテーブルからidを取得
-        $user_id = auth() -> user() -> id;
+        $user_id = auth()->user()->id;
 
         // ディレクトリ名
         $dir = 'cover';
         // 画像の添付があれば、アップロードされたファイル名を取得
-        if (!empty($request -> file('image'))){
-            $request -> file('image')->getClientOriginalName();
+        if (!empty($request->file('image'))){
+            $request->file('image')->getClientOriginalName();
                 // 画像をアップロード
             $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
                 'folder' => $dir,]);
@@ -118,33 +115,33 @@ class BrochureController extends Controller
         $dir = 'cover';
 
         // 画像の添付があれば、アップロードされたファイル名を取得
-        if (!empty($request -> file('image'))){
-            $newImageName = $request -> file('image')->getClientOriginalName();
+        if (!empty($request->file('image'))){
+            $newImageName = $request->file('image')->getClientOriginalName();
             // 以前の画像ファイル名を取得
-            $oldImageName = basename($brochure -> img_path);
+            $oldImageName = basename($brochure->img_path);
         // coverディレクトリに画像を保存
             $uploadedFile = Cloudinary::upload($request->file('image')->getRealPath(), [
             'folder' => $dir,]);
         // 古い画像の名前と新しい画像の名前が一致しなければ、古い画像を削除
             if($oldImageName !== $newImageName){
-                Cloudinary::destroy($brochure -> img_public_id);
+                Cloudinary::destroy($brochure->img_public_id);
             }
 
-            $brochure -> name = $request -> name;
-            $brochure -> area_id = $request -> area_id;
-            $brochure -> quantity = $request -> quantity;
-            $brochure -> detail = $request -> detail;
-            $brochure -> img_path = $uploadedFile->getSecurePath();
-            $brochure -> img_public_id = $uploadedFile->getPublicId();
+            $brochure->name = $request->name;
+            $brochure->area_id = $request->area_id;
+            $brochure->quantity = $request->quantity;
+            $brochure->detail = $request->detail;
+            $brochure->img_path = $uploadedFile->getSecurePath();
+            $brochure->img_public_id = $uploadedFile->getPublicId();
 
             $brochure -> save();
 
         } else {
             // 画像添付がなければ、画像パスを除く部分を更新
-            $brochure -> name = $request -> name;
-            $brochure -> area_id = $request -> area_id;
-            $brochure -> quantity = $request -> quantity;
-            $brochure -> detail = $request -> detail;
+            $brochure->name = $request->name;
+            $brochure->area_id = $request->area_id;
+            $brochure->quantity = $request->quantity;
+            $brochure->detail = $request->detail;
 
             $brochure -> save();
         }
@@ -158,15 +155,15 @@ class BrochureController extends Controller
         // ディレクトリ名
         $dir = 'cover';
 
-        $brochure = Brochure::findOrFail($request -> id);
+        $brochure = Brochure::findOrFail($request->id);
 
         // 画像名を取得
-        $ImageName = basename($brochure -> img_path);
+        $ImageName = basename($brochure->img_path);
 
-        $brochure -> delete();
+        $brochure->delete();
 
-        if (!empty($brochure -> img_public_id)){
-            Cloudinary::destroy($brochure -> img_public_id);
+        if (!empty($brochure->img_public_id)){
+            Cloudinary::destroy($brochure->img_public_id);
         }
 
         return redirect('/brochures');
@@ -191,7 +188,7 @@ class BrochureController extends Controller
             }
 
             // 検索検索を10件表示
-            $brochures = $query -> orderBy('id','asc') -> paginate(10);
+            $brochures = $query->orderBy('id','asc')->paginate(10);
 
             return view('index',['brochures' => $brochures,'keyword' => $keyword]);
     }

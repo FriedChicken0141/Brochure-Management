@@ -16,7 +16,12 @@
     </div>
 @stop
 
+@section('footer')
+    @include('footer')
+@stop
+
 @section('css')
+    <link rel="stylesheet" href="{{ asset('/css/style-cover.css')  }}" >
 @stop
 
 @section('js')

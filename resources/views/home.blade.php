@@ -7,7 +7,6 @@
 @stop
 
 @section('content')
-
     <div class="notification-head">
         <div class="notification-user">
             <h3>あなたへのお知らせ</h3>
@@ -39,7 +38,10 @@
             </div>
         </div>
     </div>
+@stop
 
+@section('footer')
+    @include('footer')
 @stop
 
 @section('css')

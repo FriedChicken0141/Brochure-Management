@@ -9,19 +9,10 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                       @foreach ($errors->all() as $error)
-                          <li>{{ $error }}</li>
-                       @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <div class="card card-primary">
                 <form method="POST" action="/brochures/add" enctype="multipart/form-data">
                     @csrf
+                    {{-- 登録部分 --}}
                     <div class="card-body">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -31,7 +22,6 @@
                             <div class="form-group">
                                 <label for="area">該当市町（県）</label>
                                 <select type="area" class="form-control" name="area_id" required>
-                                    {{-- valueの中を空にすることで空欄を選択することをできなくする --}}
                                     <option value=""disabled selected>選択してください</option>
                                     @foreach($areas as $area)
                                         <option value="{{ $area->id }}">{{ $area->area_name }}</option>
@@ -68,22 +58,14 @@
     </div>
 @stop
 
+@section('footer')
+    @include('footer')
+@stop
+
 @section('css')
-<link rel="stylesheet" href="{{ asset('/css/style-register.css')  }}" >
+    <link rel="stylesheet" href="{{ asset('/css/style-register.css')  }}" >
 @stop
 
 @section('js')
-<script>
-    $('#form-image').on('change', function(){
-	var $fr = new FileReader();
-
-	$fr.onload = function(){
-		$('#preview').attr('src', $fr.result);
-        $('.image-preview').addClass('add-solid');
-	}
-	$fr.readAsDataURL(this.files[0]);
-
-    });
-
-</script>
+    <script src="{{ asset('/js/register.js')  }}"></script>
 @stop

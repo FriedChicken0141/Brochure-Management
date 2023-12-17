@@ -34,9 +34,9 @@
                                 <th style="width: 5%">ID</th>
                                 <th style="width: 20%">登録者名</th>
                                 <th style="width: 30%">E-mail</th>
-                                <th style="width: 20%">権限</th>
-                                <th style="width: 15%">登録日</th>
-                                <th style="width: 20%"></th>
+                                <th style="width: 10%">権限</th>
+                                <th style="width: 20%">登録日</th>
+                                <th style="width: 5%"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,31 +75,14 @@
     </div>
 @stop
 
+@section('footer')
+    @include('footer')
+@stop
+
 @section('css')
-<link rel="stylesheet" href="{{ asset('/css/style-brochure.css')  }}" >
+    <link rel="stylesheet" href="{{ asset('/css/style-brochure.css')  }}" >
 @stop
 
 @section('js')
-<script>
-        $(function (){
-        $(".btn-primary").click(function(){
-            if(confirm("このユーザーの権限を変更します。")){
-
-            }else{
-
-                return false;
-            }
-        });
-    });
-    $(function (){
-        $(".btn-dell").click(function(){
-            if(confirm("このユーザーを削除しますか？")){
-
-            }else{
-
-                return false;
-            }
-        });
-    });
-</script>
+    <script src="{{ asset('/js/user.js')  }}"></script>
 @stop

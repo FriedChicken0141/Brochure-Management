@@ -14,7 +14,7 @@ class PermissionNotification extends Notification
      */
     public function __construct($permission)
     {
-        $this -> permission = $permission;
+        $this->permission = $permission;
     }
 
     /**

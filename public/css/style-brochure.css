@@ -29,6 +29,14 @@
     padding: 12px;
 }
 
+th {
+    border-bottom: 1px solid #dee2e6;
+}
+
+td {
+    border-top: 1px solid #dee2e6;
+}
+
 .button {
     align-items: center!important;
 
@@ -37,12 +45,18 @@
 .button-second {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    margin: 0;
     padding-right: 12px!important;
+    align-items: center;
+
 }
 
 form {
     padding: 3px;
+}
+
+footer {
+    text-align: center;
 }
 
 
