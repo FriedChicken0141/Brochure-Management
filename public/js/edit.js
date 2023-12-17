@@ -4,7 +4,6 @@ var $fr = new FileReader();
 
 $fr.onload = function(){
     $('#preview').attr('src', $fr.result);
-    $('.image-preview').addClass('add-solid');
 }
 $fr.readAsDataURL(this.files[0]);
 });

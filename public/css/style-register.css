@@ -1,7 +1,9 @@
 .image-preview {
-    max-width: 100%;
     height: auto;
+    width: 60%;
+    border: 1px solid black;
 }
+
 .col-md-6 {
     float: left;
     padding-left:1%;
