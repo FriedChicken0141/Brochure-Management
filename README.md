@@ -23,7 +23,7 @@ MySQL 5.7.39
 Laravel 10.13.5  
 
 ## 設計書
-[設計書ページへ](https://drive.google.com/drive/folders/1gDMdeDQgNdDM_NCJfgDADfkLJ1SF7hQ2?usp=drive_link)
+[設計書ページへ](https://drive.google.com/drive/folders/1bOUxdNzpUHHqR-gHubRDeqHTLlucWtK1?usp=drive_link)
 
 ## システム閲覧
 [アプリケーションページへ](https://brochure-management-system-aefb74c92200.herokuapp.com/login)

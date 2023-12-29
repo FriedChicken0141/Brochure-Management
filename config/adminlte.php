@@ -310,7 +310,7 @@ return [
         ],
         [
             'key'  => '使用申請一覧',
-            'text' => '使用申請',
+            'text' => '申請状況',
             'url'  => 'brochures/consent',
             'icon' => 'far fa-envelope',
         ],

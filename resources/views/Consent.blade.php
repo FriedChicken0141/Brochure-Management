@@ -3,7 +3,7 @@
 @section('title', '申請一覧')
 
 @section('content_header')
-    <h1>使用申請</h1>
+    <h1>申請状況</h1>
 @stop
 
 @section('content')
