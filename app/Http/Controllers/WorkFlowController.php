@@ -175,7 +175,7 @@ class WorkFlowController extends Controller
             $brochure -> update(['quantity' => $formerQuantity]);
 
             // 申請一覧へ遷移
-            return redirect('/brochures/consent');
+            return redirect('/brochures/result');
         }
 
         // 申請削除
