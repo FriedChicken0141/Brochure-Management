@@ -32,10 +32,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 5%">ID</th>
-                                <th style="width: 20%">登録者名</th>
+                                <th style="width: 20%">登録ユーザー名</th>
                                 <th style="width: 30%">E-mail</th>
                                 <th style="width: 10%">権限</th>
-                                <th style="width: 20%">登録日</th>
+                                <th style="width: 20%">登録日時</th>
                                 <th style="width: 5%"></th>
                             </tr>
                         </thead>

@@ -45,9 +45,10 @@
             </div>
         </div>
     </div>
-    <div class="copyright">
-        @include('footer')
-    </div>
+@stop
+
+@section('footer')
+    @include('footer')
 @stop
 
 @section('css')

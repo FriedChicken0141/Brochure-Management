@@ -24,13 +24,13 @@
                                 @can('admin-higher')
                                     <th style="width: 5%">申請者</th>
                                 @endcan
-                                <th style="width: 10%">@sortablelink('created_at','申請日時')</th>
-                                <th style="width: 5%">状況</th>
+                                    <th style="width: 10%">@sortablelink('created_at','申請日時')</th>
+                                    <th style="width: 5%">状況</th>
                                 @can('admin-higher')
                                 <th style="width: 5%"></th>
                                 @endcan
                                 @can('user-higher')
-                                <th style="width: 5%"></th>
+                                    <th style="width: 5%"></th>
                                 @endcan
                             </tr>
                         </thead>
@@ -48,30 +48,30 @@
                                         <td>{{ $approval->status }}</td>
                                         {{-- 管理者のみ --}}
                                         @can('admin-higher')
-                                        <td class="button-second">
-                                            <form action="approval/{{$approval->id}}'" method="post">
-                                                @csrf
-                                                <button type="submit" name="status" class="btn btn-primary btn-sm" value="approved">承認</button>
-                                            </form>
+                                            <td class="button-second">
+                                                <form action="approval/{{$approval->id}}'" method="post">
+                                                    @csrf
+                                                    <button type="submit" name="status" class="btn btn-primary btn-sm" value="approved">承認</button>
+                                                </form>
 
-                                            <form action="disapproval/{{$approval->id}}" method="post">
-                                                @csrf
-                                                <button type="submit" name="status" class="btn btn-secondary btn-sm btn-reject " value="rejected">否認</button>
-                                            </form>
-                                        </td>
+                                                <form action="disapproval/{{$approval->id}}" method="post">
+                                                    @csrf
+                                                    <button type="submit" name="status" class="btn btn-secondary btn-sm btn-reject " value="rejected">否認</button>
+                                                </form>
+                                            </td>
                                         @endcan
                                         {{-- ユーザーのみ --}}
                                         @can('user-higher')
-                                        <td class="button-second">
-                                            <form action="consent/edit/{{$approval->id}}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-secondary btn-sm">編集</button>
-                                            </form>
-                                            <form action="consent/delete/{{$approval->id}}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
-                                            </form>
-                                        </td>
+                                            <td class="button-second">
+                                                <form action="consent/edit/{{$approval->id}}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-secondary btn-sm">編集</button>
+                                                </form>
+                                                <form action="consent/delete/{{$approval->id}}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
+                                                </form>
+                                            </td>
                                         @endcan
                                     </tr>
                                 @endif
