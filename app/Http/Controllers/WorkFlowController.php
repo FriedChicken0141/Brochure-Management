@@ -57,7 +57,7 @@ class WorkFlowController extends Controller
             // 管理者（1）の場合、全ての申請を表示
             if($userRole == '1'){
 
-                $approvals = Approval::whereIn('status',['申請中','再申請'])
+                $approvals = Approval::whereIn('status',['申請中','再申請中'])
                 ->sortable()
                 ->paginate(20);
 
