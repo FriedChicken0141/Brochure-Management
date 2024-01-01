@@ -83,10 +83,12 @@
                                     {{-- ユーザーのみ表示 --}}
                                     @can('user-higher')
                                         <td class="button-third">
-                                            <form action="brochures/request/{{$brochure->id}}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-primary btn-sm">使用申請</button>
-                                            </form>
+                                            @if ($brochure->name !='削除したパンフレット')
+                                                <form action="brochures/request/{{$brochure->id}}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-primary btn-sm">使用申請</button>
+                                                </form>
+                                            @endif
                                         </td>
                                     @endcan
                                 </tr>
