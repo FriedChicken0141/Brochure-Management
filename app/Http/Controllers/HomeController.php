@@ -35,7 +35,10 @@ class HomeController extends Controller
 
 
         // パンフレットの新規登録があった場合、情報を取得
-        $newBrochures = Brochure::where('created_at','>=',now()->subWeek(2))->take(5)->get();
+        $newBrochures = Brochure::where('name','!=','削除したパンフレット')
+            ->where('created_at','>=',now()->subWeek(2))
+            ->take(5)
+            ->get();
 
         return view('home',compact('notifications','newBrochures','groupNotifications'));
     }
