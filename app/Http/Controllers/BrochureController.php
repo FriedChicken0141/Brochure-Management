@@ -157,7 +157,7 @@ class BrochureController extends Controller
 
         $brochure = Brochure::findOrFail($request->id);
 
-        $brochure->name = '削除';
+        $brochure->name = '削除したパンフレット';
         $brochure->quantity = '0';
         $brochure->detail = '削除済み';
         $brochure->img_path = NULL;

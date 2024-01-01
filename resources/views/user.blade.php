@@ -55,14 +55,14 @@
                                         <td>{{ $user->created_at->format('Y年m月d日 H時i分') }}</td>
                                         <td class="button-second">
                                             @if ($user->email !='_deleted' && $user->id != auth()->id())
-                                            <form action="user/change/{{$user->id}}" method="post">
-                                                @csrf
-                                                <button type="submit" name="status" class="btn btn-primary btn-sm" value="approved">権限変更</button>
-                                            </form>
-                                            <form action="user/delete/{{$user->id}}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
-                                            </form>
+                                                <form action="user/change/{{$user->id}}" method="post">
+                                                    @csrf
+                                                    <button type="submit" name="status" class="btn btn-primary btn-sm" value="approved">権限変更</button>
+                                                </form>
+                                                <form action="user/delete/{{$user->id}}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
+                                                </form>
                                             @endif
                                         </td>
                                     </tr>
