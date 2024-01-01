@@ -157,10 +157,12 @@ class BrochureController extends Controller
 
         $brochure = Brochure::findOrFail($request->id);
 
-        // 画像名を取得
-        $ImageName = basename($brochure->img_path);
-
-        $brochure->delete();
+        $brochure->name = '削除';
+        $brochure->quantity = '0';
+        $brochure->detail = '削除済み';
+        $brochure->img_path = NULL;
+        $brochure->img_public_id = NULL;
+        $brochure->save();
 
         if (!empty($brochure->img_public_id)){
             Cloudinary::destroy($brochure->img_public_id);
