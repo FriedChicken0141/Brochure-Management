@@ -52,23 +52,21 @@
                         <tbody>
                             @foreach ($brochures as $brochure)
                                 <tr>
-                                    <td>{{ $brochure->name }}</td>
-                                    <td>{{ $brochure->area->area_name }}</td>
-                                    <td>{{ $brochure->quantity }}</td>
-                                    <td>{{ $brochure->detail }}</td>
-                                    <td class="button">
-                                        @if ($brochure->name !='削除したパンフレット')
-                                            <form action="brochures/cover/{{$brochure->id}}" method="get">
-                                                @csrf
-                                                <button type="submit" class="btn btn-info btn-sm">表紙画像</button>
-                                            </form>
-                                        @endif
-                                    </td>
-                                    <td>{{ $brochure->updated_at->format('Y年m月d日 H時i分') }}</td>
-                                    {{-- 管理者のみ表示 --}}
-                                    @can('admin-higher')
-                                        <td class="button-second">
-                                            @if ($brochure->name !='削除したパンフレット')
+                                    @if ($brochure->name !='削除したパンフレット')
+                                            <td>{{ $brochure->name }}</td>
+                                            <td>{{ $brochure->area->area_name }}</td>
+                                            <td>{{ $brochure->quantity }}</td>
+                                            <td>{{ $brochure->detail }}</td>
+                                            <td class="button">
+                                                    <form action="brochures/cover/{{$brochure->id}}" method="get">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-info btn-sm">表紙画像</button>
+                                                    </form>
+                                            </td>
+                                            <td>{{ $brochure->updated_at->format('Y年m月d日 H時i分') }}</td>
+                                        {{-- 管理者のみ表示 --}}
+                                        @can('admin-higher')
+                                            <td class="button-second">
                                                 <form action="brochures/edit/{{$brochure->id}}" method="post">
                                                     @csrf
                                                     <button type="submit" class="btn btn-secondary btn-sm">編集</button>
@@ -77,20 +75,18 @@
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger btn-sm btn-dell">削除</button>
                                                 </form>
-                                            @endif
-                                        </td>
-                                    @endcan
-                                    {{-- ユーザーのみ表示 --}}
-                                    @can('user-higher')
-                                        <td class="button-third">
-                                            @if ($brochure->name !='削除したパンフレット')
+                                            </td>
+                                        @endcan
+                                        {{-- ユーザーのみ表示 --}}
+                                        @can('user-higher')
+                                            <td class="button-third">
                                                 <form action="brochures/request/{{$brochure->id}}" method="post">
                                                     @csrf
                                                     <button type="submit" class="btn btn-primary btn-sm">使用申請</button>
                                                 </form>
-                                            @endif
-                                        </td>
-                                    @endcan
+                                            </td>
+                                        @endcan
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
