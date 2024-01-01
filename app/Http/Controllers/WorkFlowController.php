@@ -45,7 +45,7 @@ class WorkFlowController extends Controller
             $user = User::where('role',1)->get();
             Notification::send($user, new InformationNotification($brochure));
 
-            return redirect('/brochures');
+            return redirect('/brochures/consent');
         }
 
         // 申請一覧画面
@@ -175,7 +175,7 @@ class WorkFlowController extends Controller
             $brochure -> update(['quantity' => $formerQuantity]);
 
             // 申請一覧へ遷移
-            return redirect('/brochures/result');
+            return redirect('/brochures/consent');
         }
 
         // 申請削除
