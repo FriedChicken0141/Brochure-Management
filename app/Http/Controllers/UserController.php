@@ -9,7 +9,7 @@ class UserController extends Controller
 {
         public function user(Request $request)
         {
-            $users = User::all();
+            $users = User::where('email','!=','_deleted')->get();
 
             return view ('user',['users' => $users]);
         }

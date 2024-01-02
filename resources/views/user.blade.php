@@ -54,7 +54,7 @@
                                         </td>
                                         <td>{{ $user->created_at->format('Y年m月d日 H時i分') }}</td>
                                         <td class="button-second">
-                                            @if ($user->email !='_deleted' && $user->id != auth()->id())
+                                            @if ($user->id != auth()->id())
                                                 <form action="user/change/{{$user->id}}" method="post">
                                                     @csrf
                                                     <button type="submit" name="status" class="btn btn-primary btn-sm" value="approved">権限変更</button>
