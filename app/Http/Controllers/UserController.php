@@ -9,7 +9,9 @@ class UserController extends Controller
 {
         public function user(Request $request)
         {
-            $users = User::where('email','!=','_deleted')->get();
+            $users = User::where('email','!=','_deleted')
+                ->orderBy('created_at')
+                ->get();
 
             return view ('user',['users' => $users]);
         }
