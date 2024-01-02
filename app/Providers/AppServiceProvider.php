@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Facade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Facade::clearResolvedInstances();
+        
         if (\App::environment(['production']) || \App::environment(['develop'])) {
             \URL::forceScheme('https');
         }

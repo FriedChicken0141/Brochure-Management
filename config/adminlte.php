@@ -291,15 +291,40 @@ return [
 
     'menu' => [
         [
-            'text' => 'パンフレット一覧',
+            'key'  => 'ホーム',
+            'text' => 'ホーム',
+            'url'  => 'home',
+            'icon' => 'fas fa-home',
+        ],
+        [
+            'key'  => 'パンフレット一覧',
+            'text' => '一覧',
             'url'  => 'brochures',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'far fa-file',
         ],
         [
             'key'  => 'パンフレット登録_admin_only',
-            'text' => 'パンフレット登録',
+            'text' => '新規登録',
             'url'  => 'brochures/register',
-            'icon' => 'fas fa-fw fa-pen',
+            'icon' => 'fas fa-pen',
+        ],
+        [
+            'key'  => '使用申請一覧',
+            'text' => '申請状況',
+            'url'  => 'brochures/consent',
+            'icon' => 'far fa-envelope',
+        ],
+        [
+            'key'  => '決裁履歴一覧',
+            'text' => '決裁履歴',
+            'url'  => 'brochures/result',
+            'icon' => 'far fa-envelope-open',
+        ],
+        [
+            'key'  => 'ユーザー一覧_admin_only',
+            'text' => 'ユーザー管理',
+            'url'  => 'brochures/user',
+            'icon' => 'far fa-address-book',
         ],
 
         // AdminLTEデフォルト

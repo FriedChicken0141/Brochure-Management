@@ -1,0 +1,45 @@
+.card-header {
+    padding: 12px;
+}
+
+.card-title {
+    padding-top: 7px;
+    font-size: 17px;
+}
+
+.table td {
+    vertical-align: middle;
+    padding-left: 12px!important;
+}
+
+.table th {
+    padding-left: 12px!important;
+}
+
+.table thead th {
+    border-bottom: 0px solid #dee2e6;
+}
+
+.button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button-second {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 12px!important;
+    align-items: center;
+
+}
+
+form {
+    padding: 3px;
+}
+
+footer {
+    text-align: center;
+}
+
+

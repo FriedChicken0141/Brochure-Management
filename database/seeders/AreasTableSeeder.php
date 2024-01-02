@@ -10,7 +10,7 @@ class AreasTableSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
         \DB::table('areas')->insert([
             [
