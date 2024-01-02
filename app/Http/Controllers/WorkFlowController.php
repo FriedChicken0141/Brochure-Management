@@ -122,7 +122,7 @@ class WorkFlowController extends Controller
             // 保存
             $approvals->save();
 
-            return redirect('/brochures/result');
+            return redirect('/brochures/consent');
         }
 
         // 承認履歴を表示
